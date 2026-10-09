@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Impressum — Normblick</title>
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <style>
+    :root {
+      --paper:  #F7F5F0;
+      --ink:    #1A1917;
+      --dim:    #5B574F;
+      --rule:   #DDD9D0;
+      --wine:   #72303A;
+      --wine-d: #5A2430;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'New York', Georgia, 'Times New Roman', serif;
+      font-size: 1.0625rem;
+      line-height: 1.72;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--wine);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--wine-d); }
+    a:focus-visible {
+      outline: 2px solid var(--wine);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Navigation ── */
+    .site-nav {
+      padding: 22px 28px 0;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .nav-mark {
+      font-family: 'New York', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--dim);
+      text-decoration: none;
+    }
+    .nav-mark:hover { color: var(--wine); }
+
+    /* ── Header ── */
+    .page-header {
+      padding: 56px 0 48px;
+    }
+    .page-eyebrow {
+      display: block;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 0.8rem;
+    }
+    .page-h1 {
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+
+    /* ── Content ── */
+    .page-content {
+      padding-bottom: 80px;
+    }
+    .content-section {
+      padding: 36px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .content-section h2 {
+      font-size: 0.72rem;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 1.1em;
+    }
+    .content-section p {
+      color: var(--dim);
+      margin-bottom: 0.75em;
+    }
+    .content-section p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    .site-footer {
+      padding: 32px 0 56px;
+      border-top: 1px solid var(--rule);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 0.75rem;
+    }
+    .footer-mark {
+      font-family: 'New York', Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--dim);
+    }
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-nav a {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: var(--dim);
+      text-decoration: none;
+    }
+    .footer-nav a:hover { color: var(--wine); }
+    .footer-nav a[aria-current="page"] {
+      color: var(--wine);
+    }
+    .copyright {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.76rem;
+      color: #B8B4AA;
+    }
+
+    @media (max-width: 480px) {
+      .page-header { padding: 40px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <nav class="site-nav" aria-label="Zurück zur Website">
+      <a href="index.html" class="nav-mark">← Normblick</a>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <header class="page-header">
+      <span class="page-eyebrow">Rechtliches</span>
+      <h1 class="page-h1">Impressum</h1>
+    </header>
+
+    <main class="page-content">
+
+      <div class="content-section">
+        <h2>Angaben gemäß § 5 DDG</h2>
+        <p>
+          Philipp Horn<br>
+          Luneq Studio<br>
+          Ludwig-Wucherer-Straße&nbsp;37<br>
+          06108&nbsp;Halle (Saale)<br>
+          Deutschland
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2>Kontakt</h2>
+        <p>
+          E-Mail: <a href="mailto:studio@luneq.eu">studio@luneq.eu</a><br>
+          Telefon: <a href="tel:+491601684533">+49&nbsp;160&nbsp;1684533</a>
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2>Steuer</h2>
+        <p>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE461757156<br>
+          Nicht im Handelsregister eingetragen.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2>Verantwortlich für den Inhalt</h2>
+        <p>Verantwortlich im Sinne des § 18 Abs.&nbsp;2 MStV: Philipp Horn, Anschrift wie oben.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>Streitbeilegung</h2>
+        <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="wrap">
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="footer-mark">Normblick</span>
+        <nav class="footer-nav" aria-label="Rechtliche Hinweise">
+          <a href="impressum.html" aria-current="page">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </nav>
+      </div>
+      <p class="copyright">© 2026 Philipp Horn · Luneq Studio</p>
+    </footer>
+  </div>
+
+</body>
+</html>

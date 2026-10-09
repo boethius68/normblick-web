@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datenschutz — Normblick</title>
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <style>
+    :root {
+      --paper:  #F7F5F0;
+      --ink:    #1A1917;
+      --dim:    #5B574F;
+      --rule:   #DDD9D0;
+      --wine:   #72303A;
+      --wine-d: #5A2430;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'New York', Georgia, 'Times New Roman', serif;
+      font-size: 1.0625rem;
+      line-height: 1.72;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--wine);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--wine-d); }
+    a:focus-visible {
+      outline: 2px solid var(--wine);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Navigation ── */
+    .site-nav {
+      padding: 22px 28px 0;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .nav-mark {
+      font-family: 'New York', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--dim);
+      text-decoration: none;
+    }
+    .nav-mark:hover { color: var(--wine); }
+
+    /* ── Header ── */
+    .page-header {
+      padding: 56px 0 48px;
+    }
+    .page-eyebrow {
+      display: block;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 0.8rem;
+    }
+    .page-h1 {
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+
+    /* ── Content ── */
+    .page-content {
+      padding-bottom: 80px;
+    }
+    .content-section {
+      padding: 36px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .content-section h2 {
+      font-size: 0.72rem;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 1.1em;
+    }
+    .content-section p {
+      color: var(--dim);
+      margin-bottom: 0.75em;
+    }
+    .content-section p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    .site-footer {
+      padding: 32px 0 56px;
+      border-top: 1px solid var(--rule);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 0.75rem;
+    }
+    .footer-mark {
+      font-family: 'New York', Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--dim);
+    }
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-nav a {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: var(--dim);
+      text-decoration: none;
+    }
+    .footer-nav a:hover { color: var(--wine); }
+    .footer-nav a[aria-current="page"] {
+      color: var(--wine);
+    }
+    .copyright {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.76rem;
+      color: #B8B4AA;
+    }
+
+    @media (max-width: 480px) {
+      .page-header { padding: 40px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <nav class="site-nav" aria-label="Zurück zur Website">
+      <a href="index.html" class="nav-mark">← Normblick</a>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <header class="page-header">
+      <span class="page-eyebrow">Rechtliches</span>
+      <h1 class="page-h1">Datenschutz&shy;erklärung</h1>
+    </header>
+
+    <main class="page-content">
+
+      <div class="content-section">
+        <h2>Verantwortlicher</h2>
+        <p>
+          Philipp Horn · Luneq Studio<br>
+          Ludwig-Wucherer-Straße&nbsp;37, 06108&nbsp;Halle (Saale)<br>
+          E-Mail: <a href="mailto:studio@luneq.eu">studio@luneq.eu</a>
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2>Datenverarbeitung durch die App</h2>
+        <p>Normblick verarbeitet keine personenbezogenen Daten. Die App liest Bildschirminhalte ausschließlich lokal auf Ihrem Gerät — nichts wird übertragen, gespeichert oder ausgewertet. Es gibt keine Benutzerkonten, keine Telemetrie und keine Fehlerberichte, die das Gerät verlassen.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>Datenverarbeitung durch diese Website</h2>
+        <p>Diese Website verwendet keine Cookies und keine Analysedienste. Es werden keine Daten über Ihren Besuch erhoben oder an Dritte weitergegeben.</p>
+        <p>Die Website wird über GitHub Pages ausgeliefert. GitHub kann technische Zugriffsdaten (u.&nbsp;a. IP-Adressen) auf der Infrastrukturebene protokollieren. Näheres regelt die Datenschutzerklärung von GitHub, Inc.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>Ihre Rechte</h2>
+        <p>Da weder die App noch diese Website personenbezogene Daten erheben oder speichern, liegen in aller Regel keine Daten vor, auf die sich Auskunfts-, Berichtigungs- oder Löschungsrechte beziehen könnten.</p>
+        <p>Für Fragen zum Datenschutz wenden Sie sich bitte an <a href="mailto:studio@luneq.eu">studio@luneq.eu</a>. Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren; zuständig ist der Landesbeauftragte für den Datenschutz Sachsen-Anhalt.</p>
+      </div>
+
+      <div class="content-section">
+        <h2>Stand</h2>
+        <p>Oktober 2026</p>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="wrap">
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="footer-mark">Normblick</span>
+        <nav class="footer-nav" aria-label="Rechtliche Hinweise">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html" aria-current="page">Datenschutz</a>
+        </nav>
+      </div>
+      <p class="copyright">© 2026 Philipp Horn · Luneq Studio</p>
+    </footer>
+  </div>
+
+</body>
+</html>

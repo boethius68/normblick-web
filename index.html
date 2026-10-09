@@ -1,187 +1,440 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Normblick — Gesetze direkt vom Bildschirm</title>
-  <meta name="description" content="Normblick liest Gesetzesnormen direkt vom Bildschirm und zeigt sofort den amtlichen Wortlaut. Für Anwälte, Richter und Referendare. macOS-Menüleisten-App, offline, ohne Konto.">
-  <meta name="robots" content="index,follow">
-  <style>
-    :root {
-      --paper:  #F7F5F0;
-      --ink:    #1A1917;
-      --dim:    #5B574F;
-      --rule:   #DDD9D0;
-      --wine:   #72303A;
-      --wine-d: #5A2430;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Normblick — Gesetze direkt vom Bildschirm</title>
+<meta name="description" content="Normblick liest Gesetzesnormen direkt vom Bildschirm und zeigt sofort den amtlichen Wortlaut. Menüleisten-App für den Mac, vollständig offline, ohne Konto. Für Anwälte, Richter und Referendare.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:title" content="Normblick — Gesetze direkt vom Bildschirm">
+<meta property="og:description" content="Wahltaste halten, die Lupe liest die Norm — der amtliche Wortlaut steht sofort da.">
+<meta property="og:type" content="website">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root {
+    --papier: #F7F5F0;
+    --blatt: #FDFCFA;
+    --tinte: #1A1917;
+    --gedaempft: #5B574F;
+    --linie: #DDD9D0;
+    --wein: #72303A;
+    --wein-tief: #5A2430;
+    --schatten: 0 24px 60px rgba(26, 25, 23, 0.14), 0 4px 14px rgba(26, 25, 23, 0.08);
+    --schatten-leicht: 0 12px 32px rgba(26, 25, 23, 0.10), 0 2px 8px rgba(26, 25, 23, 0.06);
+    --serif: 'New York', Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--serif);
+    background: var(--papier);
+    color: var(--tinte);
+    font-size: 1.0625rem;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--wein); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--wein-tief); }
+  :focus-visible { outline: 2px solid var(--wein); outline-offset: 3px; border-radius: 2px; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+  .schmal { max-width: 720px; margin-left: auto; margin-right: auto; }
 
-    body {
-      font-family: 'New York', Georgia, 'Times New Roman', serif;
-      font-size: 1.0625rem;
-      line-height: 1.72;
-      color: var(--ink);
-      background: var(--paper);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
+  .marke {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--wein);
+  }
 
-    a {
-      color: var(--wine);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-    }
-    a:hover { color: var(--wine-d); }
+  h1, h2, h3 { line-height: 1.12; font-weight: 700; letter-spacing: -0.015em; }
 
-    .wrap {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
+  /* ── Navigation ── */
+  nav.oben {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247, 245, 240, 0.88);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--linie);
+  }
+  nav.oben .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px;
+  }
+  nav.oben .name {
+    font-family: var(--serif); font-weight: 700; font-size: 1.18rem;
+    letter-spacing: -0.01em; color: var(--tinte); text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  nav.oben .name img { width: 24px; height: 24px; border-radius: 6px; }
+  nav.oben .links { display: flex; gap: 26px; font-family: var(--sans); font-size: 0.82rem; }
+  nav.oben .links a { color: var(--gedaempft); text-decoration: none; }
+  nav.oben .links a:hover { color: var(--wein); }
+  @media (max-width: 640px) {
+    nav.oben .links a:nth-child(2), nav.oben .links a:nth-child(3) { display: none; }
+  }
+  @media (max-width: 420px) {
+    nav.oben .links { display: none; }
+  }
 
-    /* ── Header ── */
-    .site-header {
-      padding: 88px 0 68px;
-    }
+  /* ── Hero ── */
+  .hero { padding: 92px 0 0; text-align: center; }
+  .hero .icon { width: 84px; height: 84px; border-radius: 19px; margin: 0 auto 30px; box-shadow: var(--schatten-leicht); }
+  .hero h1 {
+    font-size: clamp(3rem, 8.5vw, 5.4rem);
+    letter-spacing: -0.03em;
+  }
+  .hero .unter {
+    font-style: italic;
+    font-size: clamp(1.25rem, 3.2vw, 1.75rem);
+    color: var(--wein);
+    margin: 14px 0 26px;
+  }
+  .hero .versprechen {
+    max-width: 34em; margin: 0 auto 38px;
+    color: var(--gedaempft); font-size: 1.16rem;
+  }
+  .aktionen { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 68px; }
+  .knopf {
+    font-family: var(--sans); font-size: 0.95rem; font-weight: 600;
+    padding: 13px 28px; border-radius: 980px; text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    display: inline-block;
+  }
+  .knopf.gefuellt {
+    background: var(--wein); color: var(--blatt);
+    box-shadow: 0 8px 22px rgba(114, 48, 58, 0.28);
+  }
+  .knopf.gefuellt:hover { background: var(--wein-tief); color: var(--blatt); transform: translateY(-2px); }
+  .knopf.leise {
+    background: transparent; color: var(--wein);
+    border: 1px solid var(--linie);
+  }
+  .knopf.leise:hover { border-color: var(--wein); color: var(--wein-tief); transform: translateY(-2px); }
 
-    .app-wordmark {
-      font-size: clamp(2.8rem, 8vw, 4.2rem);
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.0;
-      color: var(--ink);
-      margin-bottom: 0.25em;
-    }
+  .hero-bild {
+    max-width: 980px; margin: 0 auto;
+    border-radius: 12px; overflow: hidden;
+    box-shadow: var(--schatten);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .hero-bild:hover { transform: translateY(-5px); }
 
-    .app-subtitle {
-      font-size: clamp(1.05rem, 3vw, 1.25rem);
-      font-style: italic;
-      color: var(--wine);
-      margin-bottom: 1.7em;
-    }
+  /* ── Abschnitte ── */
+  section { padding: 104px 0; }
+  .kopf { text-align: center; margin-bottom: 64px; }
+  .kopf h2 { font-size: clamp(1.9rem, 4.6vw, 2.7rem); margin-top: 12px; }
+  .kopf p { color: var(--gedaempft); max-width: 36em; margin: 18px auto 0; }
 
-    .app-desc {
-      font-size: 1.05rem;
-      color: var(--dim);
-      max-width: 52ch;
-      line-height: 1.76;
-    }
+  /* ── Schritte ── */
+  .schritte { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  @media (max-width: 820px) { .schritte { grid-template-columns: 1fr; gap: 56px; } }
+  .schritt { text-align: center; }
+  .schritt .nr {
+    font-family: var(--serif); font-size: 2.4rem; color: var(--wein);
+    display: block; margin-bottom: 10px;
+  }
+  .schritt h3 { font-size: 1.28rem; margin-bottom: 12px; }
+  .schritt p { color: var(--gedaempft); font-size: 1rem; max-width: 26em; margin: 0 auto; }
+  .taste {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--sans); font-weight: 600; font-size: 0.92em;
+    background: var(--blatt); border: 1px solid var(--linie); border-bottom-width: 3px;
+    border-radius: 8px; padding: 2px 10px; color: var(--tinte);
+    animation: tastenhub 2.8s ease-in-out infinite;
+  }
+  @keyframes tastenhub {
+    0%, 55%, 100% { transform: translateY(0); background: var(--blatt); }
+    62% { transform: translateY(2px); background: #EFE9E2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .taste { animation: none; }
+    .einblenden { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
 
-    /* ── Sections ── */
-    .site-section {
-      padding: 56px 0;
-      border-top: 1px solid var(--rule);
-    }
+  /* ── Features ── */
+  .feature {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    padding: 56px 0;
+    border-top: 1px solid var(--linie);
+  }
+  .feature:first-of-type { border-top: none; }
+  .feature.bild-links .text { order: 2; }
+  .feature.bild-links .bild { order: 1; }
+  @media (max-width: 860px) {
+    .feature { grid-template-columns: 1fr; gap: 32px; padding: 44px 0; }
+    .feature.bild-links .text, .feature.bild-links .bild { order: initial; }
+  }
+  .feature h3 { font-size: 1.7rem; margin: 10px 0 16px; }
+  .feature p { color: var(--gedaempft); }
+  .feature .bild {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: var(--schatten-leicht);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--blatt);
+  }
+  .feature .bild:hover { transform: translateY(-4px); box-shadow: var(--schatten); }
+  .paar { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .paar img { border-radius: 10px; width: 100%; }
 
-    .section-label {
-      display: block;
-      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      color: var(--wine);
-      margin-bottom: 1.5em;
-    }
+  /* ── Bestand (dunkle Bahn) ── */
+  .bestand { background: var(--tinte); color: var(--papier); text-align: center; }
+  .bestand .marke { color: #C9929B; }
+  .bestand h2 { color: var(--papier); }
+  .bestand p { color: rgba(247, 245, 240, 0.72); }
+  .zahlen {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 14px 56px; margin-top: 54px;
+  }
+  .zahl .wert { font-size: clamp(1.9rem, 4.4vw, 2.7rem); line-height: 1.15; letter-spacing: -0.02em; }
+  .zahl .name {
+    font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(247, 245, 240, 0.55); margin-top: 8px;
+  }
 
-    .site-section p {
-      margin-bottom: 0.9em;
-    }
-    .site-section p:last-child { margin-bottom: 0; }
+  /* ── Preis ── */
+  .preis { text-align: center; }
+  .preis .gross {
+    font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.025em; margin: 14px 0 8px;
+  }
+  .preis .spater {
+    color: var(--gedaempft); max-width: 34em; margin: 26px auto 0;
+    padding-top: 26px; border-top: 1px solid var(--linie);
+    font-size: 1.02rem;
+  }
 
-    /* ── Footer / Impressum ── */
-    .site-footer {
-      padding: 52px 0 72px;
-      border-top: 1px solid var(--rule);
-      color: var(--dim);
-      font-size: 0.9rem;
-      line-height: 1.68;
-    }
+  /* ── Support ── */
+  .support { text-align: center; background: var(--blatt); border-top: 1px solid var(--linie); border-bottom: 1px solid var(--linie); }
+  .support .mail {
+    font-size: clamp(1.35rem, 3.4vw, 1.9rem);
+    font-style: italic;
+  }
 
-    .footer-label {
-      display: block;
-      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      color: var(--wine);
-      margin-bottom: 1.2em;
-    }
+  /* ── Fuß ── */
+  footer { padding: 46px 0 60px; }
+  footer .zeile {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    font-family: var(--sans); font-size: 0.85rem; color: var(--gedaempft);
+  }
+  footer .links { display: flex; gap: 22px; }
+  footer .links a { color: var(--gedaempft); text-decoration: none; }
+  footer .links a:hover { color: var(--wein); }
 
-    .footer-block {
-      margin-bottom: 1.1em;
-    }
-    .footer-block:last-child { margin-bottom: 0; }
-    .footer-block p { margin: 0; }
-
-    .copyright {
-      margin-top: 2.2em;
-      font-size: 0.82rem;
-      color: #ABA89F;
-    }
-
-    @media (max-width: 520px) {
-      .site-header  { padding: 56px 0 48px; }
-      .site-section { padding: 44px 0; }
-      .site-footer  { padding: 44px 0 56px; }
-    }
-  </style>
+  /* ── Einblenden (nur wenn JavaScript läuft) ── */
+  html.js .einblenden {
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  html.js .einblenden.sichtbar { opacity: 1; transform: none; }
+</style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="site-header">
-    <h1 class="app-wordmark">Normblick</h1>
-    <p class="app-subtitle">Gesetze direkt vom Bildschirm</p>
-    <p class="app-desc">Wahltaste halten, eine Lupe liest die Gesetzesnorm aus dem aktiven Fenster — sofort erscheint der amtliche Wortlaut mit der zitierten Stelle hervorgehoben. Normblick läuft als Menüleisten-App auf dem Mac, arbeitet vollständig offline und braucht keine Anmeldung.</p>
-  </header>
+<nav class="oben">
+  <div class="wrap">
+    <a class="name" href="#"><img src="assets/favicon.png" alt="" width="24" height="24">Normblick</a>
+    <div class="links">
+      <a href="#ablauf">So funktioniert’s</a>
+      <a href="#funktionen">Funktionen</a>
+      <a href="#bestand">Der Bestand</a>
+      <a href="#preis">Preis</a>
+    </div>
+  </div>
+</nav>
 
-  <section class="site-section" id="datenschutz">
-    <span class="section-label">Datenschutz</span>
-    <p>Normblick verarbeitet keine personenbezogenen Daten. Die App liest Bildschirminhalte ausschließlich lokal auf Ihrem Gerät — nichts wird übertragen, gespeichert oder ausgewertet. Es gibt keine Benutzerkonten, keine Telemetrie und keine Fehlerberichte, die das Gerät verlassen.</p>
-    <p>Diese Website verwendet keine Cookies und keine Analysedienste. Es werden keine Daten über Ihren Besuch erhoben oder weitergegeben.</p>
-  </section>
+<header class="hero">
+  <div class="wrap">
+    <img class="icon" src="assets/icon-180.png" alt="App-Icon von Normblick" width="84" height="84">
+    <h1>Normblick</h1>
+    <p class="unter">Gesetze direkt vom Bildschirm</p>
+    <p class="versprechen">Wo ein Gesetzeszitat steht — im Schriftsatz, im Urteil, in der Mail — hält man
+      die Wahltaste: Die Lupe liest die Norm und zeigt sofort den amtlichen Wortlaut, die zitierte Stelle
+      hervorgehoben. Ohne Umweg, ohne Kopieren, ohne Datenbank-Recherche.</p>
+    <div class="aktionen">
+      <span class="knopf gefuellt">Demnächst im Mac&nbsp;App&nbsp;Store</span>
+      <a class="knopf leise" href="#support">Jetzt kostenlos testen</a>
+    </div>
+    <div class="hero-bild">
+      <img src="assets/shots/gesetze-hell.jpg" alt="Das Gesetzesfenster von Normblick mit § 823 BGB: Inhaltsverzeichnis links, amtlicher Wortlaut rechts" width="1600" height="1120">
+    </div>
+  </div>
+</header>
 
-  <section class="site-section" id="support">
-    <span class="section-label">Support</span>
-    <p>Bei Fragen, Hinweisen oder Fehlermeldungen schreiben Sie bitte an<br>
-    <a href="mailto:studio@luneq.eu">studio@luneq.eu</a></p>
-  </section>
+<section id="ablauf">
+  <div class="wrap">
+    <div class="kopf einblenden">
+      <span class="marke">So funktioniert’s</span>
+      <h2>Drei Handgriffe, ein Wortlaut</h2>
+    </div>
+    <div class="schritte">
+      <div class="schritt einblenden">
+        <span class="nr">1</span>
+        <h3>Zitat sehen</h3>
+        <p>Eine Norm wird zitiert — irgendwo auf dem Bildschirm. In einem Dokument, in einer
+          E-Mail, in einem Portal.</p>
+      </div>
+      <div class="schritt einblenden">
+        <span class="nr">2</span>
+        <h3>Wahltaste halten</h3>
+        <p>Eine Lupe erscheint am Cursor und liest die Fundstelle. Kein Ausschneiden,
+          kein Wechseln des Programms. <span class="taste">⌥ Wahltaste</span></p>
+      </div>
+      <div class="schritt einblenden">
+        <span class="nr">3</span>
+        <h3>Wortlaut lesen</h3>
+        <p>Der amtliche Text steht da — mit der zitierten Stelle hervorgehoben, mit
+          Satzzählung und Fußnoten.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer class="site-footer" id="impressum">
-    <span class="footer-label">Impressum</span>
-    <div class="footer-block">
-      <p>Angaben gemäß § 5 DDG</p>
+<section id="funktionen" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="kopf einblenden">
+      <span class="marke">Funktionen</span>
+      <h2>Gebaut für die tägliche Arbeit mit dem Recht</h2>
     </div>
-    <div class="footer-block">
-      <p>Philipp Horn<br>
-      Luneq Studio<br>
-      Ludwig-Wucherer-Straße&nbsp;37<br>
-      06108&nbsp;Halle (Saale)<br>
-      Deutschland</p>
-    </div>
-    <div class="footer-block">
-      <p>E-Mail: <a href="mailto:studio@luneq.eu">studio@luneq.eu</a><br>
-      Telefon: <a href="tel:+491601684533">+49&nbsp;160&nbsp;1684533</a></p>
-    </div>
-    <div class="footer-block">
-      <p>Umsatzsteuer-ID gemäß § 27a UStG: DE461757156<br>
-      Nicht im Handelsregister eingetragen.</p>
-    </div>
-    <div class="footer-block">
-      <p>Verantwortlich i.&nbsp;S.&nbsp;d. § 18 Abs.&nbsp;2 MStV: Philipp Horn, Anschrift wie oben.</p>
-    </div>
-    <div class="footer-block">
-      <p>Wir sind nicht bereit und nicht verpflichtet, an
-      Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
-      teilzunehmen.</p>
-    </div>
-    <p class="copyright">© 2026 Philipp Horn · Luneq Studio</p>
-  </footer>
 
-</div>
+    <div class="feature">
+      <div class="text einblenden">
+        <span class="marke">Satz-Hervorhebung</span>
+        <h3>Nicht der Paragraph — der Satz</h3>
+        <p>„§ 11 Abs. 1 Satz 4“ meint eine bestimmte Stelle, nicht den ganzen Absatz.
+          Normblick hebt genau sie hervor, mit hochgestellten Satzzahlen wie im
+          amtlichen Druck — und zeigt den Absatz im Zusammenhang.</p>
+      </div>
+      <div class="bild einblenden">
+        <div class="paar">
+          <img src="assets/shots/ergebnis-hell.png" alt="Ergebnisfenster in heller Erscheinung: Absatz 1 des § 11 EStG mit hervorgehobenem Satz 4" width="1000" height="750">
+          <img src="assets/shots/ergebnis-dunkel.png" alt="Dasselbe Ergebnisfenster in dunkler Erscheinung" width="1000" height="750">
+        </div>
+      </div>
+    </div>
+
+    <div class="feature bild-links">
+      <div class="text einblenden">
+        <span class="marke">Gesetzesfenster</span>
+        <h3>Das ganze Gesetz, wenn man es braucht</h3>
+        <p>Inhaltsverzeichnis, Wortsuche, Fundstellensuche und Verlauf — mit einem Klick
+          von der Fundstelle in den ganzen Text und wieder zurück an dieselbe Stelle.</p>
+      </div>
+      <div class="bild einblenden">
+        <img src="assets/shots/suche-hell.jpg" alt="Gesetzesfenster mit aktiver Wortsuche im BGB" width="1600" height="1120">
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="text einblenden">
+        <span class="marke">Erscheinungen</span>
+        <h3>Hell am Tag, dunkel in der Nacht</h3>
+        <p>Beide Erscheinungen sind durchgezeichnet — bis in die Schrift des Textes.
+          Kein Umrüsten, kein Nacharbeiten: das Fenster folgt dem System.</p>
+      </div>
+      <div class="bild einblenden">
+        <img src="assets/shots/gesetze-dunkel.jpg" alt="Das Gesetzesfenster von Normblick in dunkler Erscheinung" width="1600" height="1120">
+      </div>
+    </div>
+
+    <div class="feature bild-links">
+      <div class="text einblenden">
+        <span class="marke">Spotlight &amp; Zwischenablage</span>
+        <h3>Gefunden wird geöffnet</h3>
+        <p>Normblick meldet seine Fundstellen an die Systemsuche — ein Spotlight-Treffer
+          öffnet das Gesetz an der richtigen Stelle. Und was in der Zwischenablage
+          liegt, wird mit Steuerung&nbsp;+&nbsp;Befehl&nbsp;+&nbsp;L nachgeschlagen.</p>
+      </div>
+      <div class="bild einblenden">
+        <img src="assets/shots/spotlight.jpg" alt="Ein über Spotlight geöffneter Treffer: § 823 BGB im Gesetzesfenster" width="1600" height="1120">
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="text einblenden">
+        <span class="marke">Offline &amp; Privatsphäre</span>
+        <h3>Nichts verlässt das Gerät</h3>
+        <p>Der gesamte Bestand liegt lokal auf dem Mac. Kein Konto, keine Anmeldung,
+          keine Telemetrie — und Fehlerberichte bleiben auf dem Gerät, bis man sie
+          selbst verschickt.</p>
+      </div>
+      <div class="bild einblenden" style="box-shadow:none; background:none; text-align:center;">
+        <img src="assets/icon-512.png" alt="App-Icon von Normblick" width="280" height="280" style="margin: 0 auto; border-radius: 64px; box-shadow: var(--schatten-leicht);">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bestand" class="bestand">
+  <div class="wrap schmal">
+    <div class="einblenden">
+      <span class="marke">Der Bestand</span>
+      <h2>Was auf dem Mac liegt</h2>
+      <p>Monatlich gepflegt, als mitgelieferte Sammlung — kein Server, keine
+        Verbindung, kein Warten auf eine Antwort.</p>
+    </div>
+    <div class="zahlen einblenden">
+      <div class="zahl"><div class="wert">382.015</div><div class="name">Normen</div></div>
+      <div class="zahl"><div class="wert">19</div><div class="name">Quellen</div></div>
+      <div class="zahl"><div class="wert">16</div><div class="name">Bundesländer</div></div>
+      <div class="zahl"><div class="wert">Bund &amp; EU</div><div class="name">vollständig &amp; ausgewählt</div></div>
+      <div class="zahl"><div class="wert">EMRK</div><div class="name">Europarat</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="preis" class="preis">
+  <div class="wrap schmal">
+    <div class="einblenden">
+      <span class="marke">Preis</span>
+      <div class="gross">Jetzt kostenlos</div>
+      <p>Normblick ist in der Testphase frei — für alle, die mit dem Recht arbeiten.</p>
+      <p class="spater">Geplant ist eine einfache Staffel: eine Basisversion für 1,69&nbsp;€ einmalig
+        und eine vollständige Fassung mit allen Bundesländern und EU-Recht als günstiges
+        Monatsabo. Wer die kostenlose Fassung nutzt, verliert nichts davon.</p>
+    </div>
+  </div>
+</section>
+
+<section id="support" class="support">
+  <div class="wrap schmal">
+    <div class="einblenden">
+      <span class="marke">Support</span>
+      <h2>Jetzt kostenlos testen</h2>
+      <p>Schreiben Sie uns — wir schicken Ihnen die aktuelle Fassung und hören,
+        was in Ihrer Arbeit noch fehlt.</p>
+      <p><a class="mail" href="mailto:studio@luneq.eu">studio@luneq.eu</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="zeile">
+      <div>© 2026 Philipp Horn · Luneq Studio</div>
+      <div class="links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const beobachter = new IntersectionObserver((eintraege) => {
+    for (const e of eintraege) {
+      if (e.isIntersecting) { e.target.classList.add('sichtbar'); beobachter.unobserve(e.target); }
+    }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.einblenden').forEach(el => beobachter.observe(el));
+</script>
+
 </body>
 </html>
