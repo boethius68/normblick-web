@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Normblick — Gesetze direkt vom Bildschirm</title>
+  <meta name="description" content="Normblick liest Gesetzesnormen direkt vom Bildschirm und zeigt sofort den amtlichen Wortlaut. Für Anwälte, Richter und Referendare. macOS-Menüleisten-App, offline, ohne Konto.">
+  <meta name="robots" content="index,follow">
+  <style>
+    :root {
+      --paper:  #F7F5F0;
+      --ink:    #1A1917;
+      --dim:    #5B574F;
+      --rule:   #DDD9D0;
+      --wine:   #72303A;
+      --wine-d: #5A2430;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'New York', Georgia, 'Times New Roman', serif;
+      font-size: 1.0625rem;
+      line-height: 1.72;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--wine);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--wine-d); }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      padding: 88px 0 68px;
+    }
+
+    .app-wordmark {
+      font-size: clamp(2.8rem, 8vw, 4.2rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 0.25em;
+    }
+
+    .app-subtitle {
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      font-style: italic;
+      color: var(--wine);
+      margin-bottom: 1.7em;
+    }
+
+    .app-desc {
+      font-size: 1.05rem;
+      color: var(--dim);
+      max-width: 52ch;
+      line-height: 1.76;
+    }
+
+    /* ── Sections ── */
+    .site-section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .section-label {
+      display: block;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 1.5em;
+    }
+
+    .site-section p {
+      margin-bottom: 0.9em;
+    }
+    .site-section p:last-child { margin-bottom: 0; }
+
+    /* ── Footer / Impressum ── */
+    .site-footer {
+      padding: 52px 0 72px;
+      border-top: 1px solid var(--rule);
+      color: var(--dim);
+      font-size: 0.9rem;
+      line-height: 1.68;
+    }
+
+    .footer-label {
+      display: block;
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 1.2em;
+    }
+
+    .footer-block {
+      margin-bottom: 1.1em;
+    }
+    .footer-block:last-child { margin-bottom: 0; }
+    .footer-block p { margin: 0; }
+
+    .copyright {
+      margin-top: 2.2em;
+      font-size: 0.82rem;
+      color: #ABA89F;
+    }
+
+    @media (max-width: 520px) {
+      .site-header  { padding: 56px 0 48px; }
+      .site-section { padding: 44px 0; }
+      .site-footer  { padding: 44px 0 56px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-header">
+    <h1 class="app-wordmark">Normblick</h1>
+    <p class="app-subtitle">Gesetze direkt vom Bildschirm</p>
+    <p class="app-desc">Wahltaste halten, eine Lupe liest die Gesetzesnorm aus dem aktiven Fenster — sofort erscheint der amtliche Wortlaut mit der zitierten Stelle hervorgehoben. Normblick läuft als Menüleisten-App auf dem Mac, arbeitet vollständig offline und braucht keine Anmeldung.</p>
+  </header>
+
+  <section class="site-section" id="datenschutz">
+    <span class="section-label">Datenschutz</span>
+    <p>Normblick verarbeitet keine personenbezogenen Daten. Die App liest Bildschirminhalte ausschließlich lokal auf Ihrem Gerät — nichts wird übertragen, gespeichert oder ausgewertet. Es gibt keine Benutzerkonten, keine Telemetrie und keine Fehlerberichte, die das Gerät verlassen.</p>
+    <p>Diese Website verwendet keine Cookies und keine Analysedienste. Es werden keine Daten über Ihren Besuch erhoben oder weitergegeben.</p>
+  </section>
+
+  <section class="site-section" id="support">
+    <span class="section-label">Support</span>
+    <p>Bei Fragen, Hinweisen oder Fehlermeldungen schreiben Sie bitte an<br>
+    <a href="mailto:studio@luneq.eu">studio@luneq.eu</a></p>
+  </section>
+
+  <footer class="site-footer" id="impressum">
+    <span class="footer-label">Impressum</span>
+    <div class="footer-block">
+      <p>Angaben gemäß § 5 DDG</p>
+    </div>
+    <div class="footer-block">
+      <p>Philipp Horn<br>
+      Luneq Studio<br>
+      Ludwig-Wucherer-Straße&nbsp;37<br>
+      06108&nbsp;Halle (Saale)<br>
+      Deutschland</p>
+    </div>
+    <div class="footer-block">
+      <p>E-Mail: <a href="mailto:studio@luneq.eu">studio@luneq.eu</a><br>
+      Telefon: <a href="tel:+491601684533">+49&nbsp;160&nbsp;1684533</a></p>
+    </div>
+    <div class="footer-block">
+      <p>Umsatzsteuer-ID gemäß § 27a UStG: DE461757156<br>
+      Nicht im Handelsregister eingetragen.</p>
+    </div>
+    <div class="footer-block">
+      <p>Verantwortlich i.&nbsp;S.&nbsp;d. § 18 Abs.&nbsp;2 MStV: Philipp Horn, Anschrift wie oben.</p>
+    </div>
+    <div class="footer-block">
+      <p>Wir sind nicht bereit und nicht verpflichtet, an
+      Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+      teilzunehmen.</p>
+    </div>
+    <p class="copyright">© 2026 Philipp Horn · Luneq Studio</p>
+  </footer>
+
+</div>
+</body>
+</html>
