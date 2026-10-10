@@ -82,6 +82,15 @@
 .lens-pin[aria-pressed="true"] { color: #a33430; }
 .lens-result-footer a { min-height: 32px; display: inline-flex; align-items: center; gap: 5px; color: #625d55; text-decoration: none; }
 .lens-result-footer a:hover { color: #a33430; text-decoration: underline; }
+@media (min-width: 1200px) {
+  .lens-demo { width: 100%; max-width: 760px; margin: 0; }
+  .lens-stage { min-height: 410px; padding: 18px 24px 0; }
+  .lens-document { min-height: 410px; padding: 28px 32px 30px; font-size: 18px; }
+  .lens-toolbar { gap: 16px; }
+  .lens-instruction { gap: 10px; min-width: 0; }
+  .lens-instruction p { font-size: 12px; }
+  .lens-result { width: min(360px, calc(100% - 28px)); }
+}
 @media (prefers-reduced-motion: no-preference) {
   .lens-result:not([hidden]) { animation: lens-result-appear 160ms ease-out; }
   @keyframes lens-result-appear { from { opacity: 0; transform: translateY(4px) scale(.985); } to { opacity: 1; transform: none; } }

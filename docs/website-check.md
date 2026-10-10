@@ -5,6 +5,7 @@ Stand: 10. Oktober 2026. Statische Produktwebsite, kein App-Release-Test.
 ## Tatsächlich ausgeführte Browser-Prüfung
 
 - Chrome über Playwright mit echten CSS-Viewports: 320, 375, 390, 768, 1280 und 1440 px.
+- Zweispaltiger Hero zusätzlich in Chromium und WebKit jeweils über 22 Kombinationen geprüft: 320/390/768/1024/1199/1200/1280/1440/1470/1920/2560 px, Hell/Dunkel. Ab 1200 px Information links und Simulation rechts in derselben Zeile; darunter gestapelt, kein horizontaler Überlauf. Normwechsel mit offenem Ergebnis auf breiten Viewports geprüft; schmaleres Ergebnisfenster verdeckt den zweiten Einstieg nicht. Matrix ohne Fehler; Interaktionen erneut 67/67 je Engine. Aktuelle Belege: `~/.hermes/cache/scratch/normblick-split-verified-matrix-{chromium,webkit}/`, `normblick-split-verified-{chromium,webkit}/` und `normblick-split-verified-site/`.
 - Startseite, Impressum, Datenschutz und 404-Seite: keine horizontalen Überläufe, defekten sichtbaren Bilder, fehlerhaften Anker oder JavaScript-Konsolenfehler in der Responsive-Prüfung.
 - axe-core: keine gemeldeten WCAG-A/AA- oder Best-Practice-Verstöße in den geprüften Zuständen. Automatisierte Prüfung ersetzt keine vollständige manuelle Barrierefreiheitsprüfung.
 - Inhalte ohne JavaScript auf 390 und 1440 px geprüft.

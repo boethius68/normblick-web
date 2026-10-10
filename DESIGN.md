@@ -7,6 +7,7 @@ Die Lupe ist das Key-Feature und trägt den Hero. Ein bedienbarer Vorschautext m
 - DESIGN_VARIANCE: 5. Asymmetrischer Einstieg, danach wechselnde Inhaltsdichte.
 - MOTION_INTENSITY: 2. Nur Rückmeldung auf Bedienung; keine automatischen Animationen.
 - VISUAL_DENSITY: 4. Ausführliche Erklärungen, kurze Absätze, klare Lesereihenfolge.
+- Breiter Hero ab 1200 px zweispaltig: links App-Erklärung, drei sachliche Vorteile und Testzugang, rechts die bedienbare Simulation. Gesamtbreite 1240 px begrenzt; die Simulation bleibt etwa 620–700 px breit, statt den Bildschirm auszufüllen. Darunter gestapelte Darstellung. Ergebnisfenster in der Desktop-Spalte auf 360 px begrenzt, damit die andere Fundstelle zugänglich bleibt. Keine Verkleinerung per CSS-Transform; Dokument bleibt lesbar und bedienbar.
 - Formen: 12 px für Mac-nahe Bedienelemente, 28 px für Screenshotrahmen, 18 px konzentrisch für das Bild innen. Dezente Materialverläufe und eingelassene Kanten statt schwebender SaaS-Buttons. Galerieauswahl als natives Segment-Control. Screenshots bleiben vollständig sichtbar.
 - Website folgt dem Systemfarbschema. Helle und dunkle App-Aufnahmen sind unabhängig davon auswählbar.
 - Alle Funktionen als statisches HTML zugänglich; JavaScript ergänzt Galerie, mobile Navigation und Bilddialog. Keine Drittanbieter, Cookies, Telemetrie oder Webfonts.
