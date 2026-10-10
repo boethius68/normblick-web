@@ -22,6 +22,8 @@ Stand: 10. Oktober 2026. Statische Produktwebsite, kein App-Release-Test.
 
 ## Sachliche Korrekturen
 
+CSS-/JavaScript-URLs tragen einen Inhalts-Hash als `?v=…`. Vor jedem Push `python3 scripts/check-asset-versions.py` ausführen und veränderte Hashes in allen betroffenen HTML-Verweisen aktualisieren. Der Hostinger-Cache liefert unversionierte Asset-URLs teils eine Woche lang aus; ein erfolgreicher Abruf mit zufälligem Release-Query beweist deshalb nicht, was der Browser über die tatsächlich im HTML referenzierte URL erhält. Beim Live-Test die echten Netzwerkantworten und die Bedienung prüfen, nicht nur Repository-/Server-Hashes.
+
 Lupengeometrie und Bedienung gegen `ScannerOverlay.swift`, `OptionKeyWatcher.swift`, `KeyGesture.swift` und `NormOverlayPanel.swift` im App-Repo geprüft. Die vorherige Behauptung, Loslassen schließe die Lupe, entfernt. Berechtigungsangaben in Startseite und Datenschutz korrigiert: Bildschirmaufnahme erforderlich, Bedienungshilfen nicht. Kein erfundener Download, kein App-Store-Link und keine bereits fertigen Preise. Datenbestand mit September 2026 gekennzeichnet; EU-Abdeckung ausdrücklich eine Auswahl. Impressumsdaten beibehalten.
 
 ## Grenzen
