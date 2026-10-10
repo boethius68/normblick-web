@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://normblick.luneq.eu/sitemap.xml

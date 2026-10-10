@@ -1,0 +1,46 @@
+/* A deliberate, visitor-triggered illustration; never an automatic loop. */
+.workflow-demo { grid-column: 1 / -1; margin-top: -36px; border: 1px solid var(--border); border-radius: var(--radius-stage); background: var(--tint); overflow: hidden; min-width: 0; }
+.demo-header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px 32px; border-bottom: 1px solid var(--border); }
+.demo-header .small { margin-top: 6px; }
+.demo-stage { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; padding: 40px; min-width: 0; }
+.demo-document { position: relative; background: var(--surface); border: 1px solid var(--border); padding: 32px; box-shadow: 0 6px 18px oklch(20% .006 250 / .04); color: var(--muted); font-family: Georgia, 'Times New Roman', serif; font-size: 17px; line-height: 1.8; min-width: 0; }
+.demo-document-label { margin-bottom: 24px; font: 12px/1.5 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.demo-document p + p { margin-top: 18px; }
+.demo-citation { position: relative; z-index: 1; color: var(--fg); white-space: nowrap; border-bottom: 1px solid var(--control-border); }
+.demo-lines { display: grid; gap: 10px; margin: 24px 0; }
+.demo-lines span { height: 3px; border-radius: 2px; background: var(--border); width: 100%; }
+.demo-lines span:last-child { width: 72%; }
+.demo-loupe { position: absolute; z-index: 2; inset: 34% 12px auto; display: grid; gap: 6px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--accent); border-radius: 10px; box-shadow: 0 12px 30px oklch(10% .006 250 / .12); color: var(--fg); font: 12px/1.5 var(--font-body); }
+.demo-loupe strong { font-size: clamp(17px, 2vw, 24px); font-weight: 550; letter-spacing: -.01em; }
+.demo-loupe-label { color: var(--fg); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.demo-result-stage { display: grid; min-width: 0; }
+.demo-result-stage > * { grid-area: 1 / 1; }
+.demo-result { background: #fff; border-radius: 12px; }
+.demo-result img { width: 100%; }
+.demo-placeholder { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--muted); min-height: 280px; }
+.demo-placeholder > span { font: 400 60px/1 Georgia, serif; color: var(--control-border); margin-bottom: 16px; }
+.demo-placeholder > p { font-size: 15px; line-height: 1.6; }
+.demo-enhanced:not([data-step="2"]) .demo-result { visibility: hidden; pointer-events: none; }
+.demo-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 32px; border-top: 1px solid var(--border); }
+.demo-footer .small { max-width: 75ch; }
+.demo-progress { display: flex; gap: 6px; flex-shrink: 0; }
+.demo-progress i { width: 18px; height: 3px; border-radius: 2px; background: var(--control-border); }
+.workflow-demo[data-step="0"] .demo-progress i:first-child,
+.workflow-demo[data-step="1"] .demo-progress i:nth-child(-n+2),
+.workflow-demo[data-step="2"] .demo-progress i { background: var(--fg); }
+@media (prefers-reduced-motion: no-preference) {
+  .workflow-demo[data-step="1"] .demo-loupe { animation: loupe-enter 350ms cubic-bezier(.2,.8,.2,1) both; }
+  .demo-enhanced[data-step="2"] .demo-result { animation: result-enter 400ms cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes loupe-enter { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+  @keyframes result-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+}
+@media (max-width: 1023px) { .workflow-demo { margin-top: 0; } .demo-stage { gap: 24px; padding: 24px; } .demo-document { padding: 24px; } }
+@media (max-width: 767px) {
+  .demo-header { flex-direction: column; align-items: start; gap: 16px; padding: 24px; }
+  .demo-stage { grid-template-columns: 1fr; gap: 24px; padding: 20px; }
+  .demo-document { padding: 24px 20px; font-size: 16px; }
+  .demo-placeholder { min-height: 200px; }
+  .demo-footer { padding: 20px 24px; align-items: start; }
+  .demo-loupe { inset-inline: 8px; padding: 14px; }
+  .demo-loupe strong { font-size: 19px; }
+}

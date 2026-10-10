@@ -1,440 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Normblick — Gesetze direkt vom Bildschirm</title>
-<meta name="description" content="Normblick liest Gesetzesnormen direkt vom Bildschirm und zeigt sofort den amtlichen Wortlaut. Menüleisten-App für den Mac, vollständig offline, ohne Konto. Für Anwälte, Richter und Referendare.">
-<link rel="icon" type="image/png" href="assets/favicon.png">
-<meta property="og:title" content="Normblick — Gesetze direkt vom Bildschirm">
-<meta property="og:description" content="Wahltaste halten, die Lupe liest die Norm — der amtliche Wortlaut steht sofort da.">
-<meta property="og:type" content="website">
-<script>document.documentElement.classList.add('js');</script>
-<style>
-  :root {
-    --papier: #F7F5F0;
-    --blatt: #FDFCFA;
-    --tinte: #1A1917;
-    --gedaempft: #5B574F;
-    --linie: #DDD9D0;
-    --wein: #72303A;
-    --wein-tief: #5A2430;
-    --schatten: 0 24px 60px rgba(26, 25, 23, 0.14), 0 4px 14px rgba(26, 25, 23, 0.08);
-    --schatten-leicht: 0 12px 32px rgba(26, 25, 23, 0.10), 0 2px 8px rgba(26, 25, 23, 0.06);
-    --serif: 'New York', Georgia, 'Times New Roman', serif;
-    --sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--serif);
-    background: var(--papier);
-    color: var(--tinte);
-    font-size: 1.0625rem;
-    line-height: 1.72;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    overflow-wrap: break-word;
-    hyphens: auto;
-  }
-  img { max-width: 100%; height: auto; display: block; }
-  a { color: var(--wein); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:hover { color: var(--wein-tief); }
-  :focus-visible { outline: 2px solid var(--wein); outline-offset: 3px; border-radius: 2px; }
-
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
-  .schmal { max-width: 720px; margin-left: auto; margin-right: auto; }
-
-  .marke {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--wein);
-  }
-
-  h1, h2, h3 { line-height: 1.12; font-weight: 700; letter-spacing: -0.015em; }
-
-  /* ── Navigation ── */
-  nav.oben {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(247, 245, 240, 0.88);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--linie);
-  }
-  nav.oben .wrap {
-    display: flex; align-items: center; justify-content: space-between;
-    height: 58px;
-  }
-  nav.oben .name {
-    font-family: var(--serif); font-weight: 700; font-size: 1.18rem;
-    letter-spacing: -0.01em; color: var(--tinte); text-decoration: none;
-    display: flex; align-items: center; gap: 10px;
-  }
-  nav.oben .name img { width: 24px; height: 24px; border-radius: 6px; }
-  nav.oben .links { display: flex; gap: 26px; font-family: var(--sans); font-size: 0.82rem; }
-  nav.oben .links a { color: var(--gedaempft); text-decoration: none; }
-  nav.oben .links a:hover { color: var(--wein); }
-  @media (max-width: 640px) {
-    nav.oben .links a:nth-child(2), nav.oben .links a:nth-child(3) { display: none; }
-  }
-  @media (max-width: 420px) {
-    nav.oben .links { display: none; }
-  }
-
-  /* ── Hero ── */
-  .hero { padding: 92px 0 0; text-align: center; }
-  .hero .icon { width: 84px; height: 84px; border-radius: 19px; margin: 0 auto 30px; box-shadow: var(--schatten-leicht); }
-  .hero h1 {
-    font-size: clamp(3rem, 8.5vw, 5.4rem);
-    letter-spacing: -0.03em;
-  }
-  .hero .unter {
-    font-style: italic;
-    font-size: clamp(1.25rem, 3.2vw, 1.75rem);
-    color: var(--wein);
-    margin: 14px 0 26px;
-  }
-  .hero .versprechen {
-    max-width: 34em; margin: 0 auto 38px;
-    color: var(--gedaempft); font-size: 1.16rem;
-  }
-  .aktionen { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 68px; }
-  .knopf {
-    font-family: var(--sans); font-size: 0.95rem; font-weight: 600;
-    padding: 13px 28px; border-radius: 980px; text-decoration: none;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    display: inline-block;
-  }
-  .knopf.gefuellt {
-    background: var(--wein); color: var(--blatt);
-    box-shadow: 0 8px 22px rgba(114, 48, 58, 0.28);
-  }
-  .knopf.gefuellt:hover { background: var(--wein-tief); color: var(--blatt); transform: translateY(-2px); }
-  .knopf.leise {
-    background: transparent; color: var(--wein);
-    border: 1px solid var(--linie);
-  }
-  .knopf.leise:hover { border-color: var(--wein); color: var(--wein-tief); transform: translateY(-2px); }
-
-  .hero-bild {
-    max-width: 980px; margin: 0 auto;
-    border-radius: 12px; overflow: hidden;
-    box-shadow: var(--schatten);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-  }
-  .hero-bild:hover { transform: translateY(-5px); }
-
-  /* ── Abschnitte ── */
-  section { padding: 104px 0; }
-  .kopf { text-align: center; margin-bottom: 64px; }
-  .kopf h2 { font-size: clamp(1.9rem, 4.6vw, 2.7rem); margin-top: 12px; }
-  .kopf p { color: var(--gedaempft); max-width: 36em; margin: 18px auto 0; }
-
-  /* ── Schritte ── */
-  .schritte { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-  @media (max-width: 820px) { .schritte { grid-template-columns: 1fr; gap: 56px; } }
-  .schritt { text-align: center; }
-  .schritt .nr {
-    font-family: var(--serif); font-size: 2.4rem; color: var(--wein);
-    display: block; margin-bottom: 10px;
-  }
-  .schritt h3 { font-size: 1.28rem; margin-bottom: 12px; }
-  .schritt p { color: var(--gedaempft); font-size: 1rem; max-width: 26em; margin: 0 auto; }
-  .taste {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--sans); font-weight: 600; font-size: 0.92em;
-    background: var(--blatt); border: 1px solid var(--linie); border-bottom-width: 3px;
-    border-radius: 8px; padding: 2px 10px; color: var(--tinte);
-    animation: tastenhub 2.8s ease-in-out infinite;
-  }
-  @keyframes tastenhub {
-    0%, 55%, 100% { transform: translateY(0); background: var(--blatt); }
-    62% { transform: translateY(2px); background: #EFE9E2; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .taste { animation: none; }
-    .einblenden { opacity: 1 !important; transform: none !important; transition: none !important; }
-  }
-
-  /* ── Features ── */
-  .feature {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
-    padding: 56px 0;
-    border-top: 1px solid var(--linie);
-  }
-  .feature:first-of-type { border-top: none; }
-  .feature.bild-links .text { order: 2; }
-  .feature.bild-links .bild { order: 1; }
-  @media (max-width: 860px) {
-    .feature { grid-template-columns: 1fr; gap: 32px; padding: 44px 0; }
-    .feature.bild-links .text, .feature.bild-links .bild { order: initial; }
-  }
-  .feature h3 { font-size: 1.7rem; margin: 10px 0 16px; }
-  .feature p { color: var(--gedaempft); }
-  .feature .bild {
-    border-radius: 12px; overflow: hidden;
-    box-shadow: var(--schatten-leicht);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: var(--blatt);
-  }
-  .feature .bild:hover { transform: translateY(-4px); box-shadow: var(--schatten); }
-  .paar { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .paar img { border-radius: 10px; width: 100%; }
-
-  /* ── Bestand (dunkle Bahn) ── */
-  .bestand { background: var(--tinte); color: var(--papier); text-align: center; }
-  .bestand .marke { color: #C9929B; }
-  .bestand h2 { color: var(--papier); }
-  .bestand p { color: rgba(247, 245, 240, 0.72); }
-  .zahlen {
-    display: flex; justify-content: center; flex-wrap: wrap;
-    gap: 14px 56px; margin-top: 54px;
-  }
-  .zahl .wert { font-size: clamp(1.9rem, 4.4vw, 2.7rem); line-height: 1.15; letter-spacing: -0.02em; }
-  .zahl .name {
-    font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: rgba(247, 245, 240, 0.55); margin-top: 8px;
-  }
-
-  /* ── Preis ── */
-  .preis { text-align: center; }
-  .preis .gross {
-    font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.025em; margin: 14px 0 8px;
-  }
-  .preis .spater {
-    color: var(--gedaempft); max-width: 34em; margin: 26px auto 0;
-    padding-top: 26px; border-top: 1px solid var(--linie);
-    font-size: 1.02rem;
-  }
-
-  /* ── Support ── */
-  .support { text-align: center; background: var(--blatt); border-top: 1px solid var(--linie); border-bottom: 1px solid var(--linie); }
-  .support .mail {
-    font-size: clamp(1.35rem, 3.4vw, 1.9rem);
-    font-style: italic;
-  }
-
-  /* ── Fuß ── */
-  footer { padding: 46px 0 60px; }
-  footer .zeile {
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
-    font-family: var(--sans); font-size: 0.85rem; color: var(--gedaempft);
-  }
-  footer .links { display: flex; gap: 22px; }
-  footer .links a { color: var(--gedaempft); text-decoration: none; }
-  footer .links a:hover { color: var(--wein); }
-
-  /* ── Einblenden (nur wenn JavaScript läuft) ── */
-  html.js .einblenden {
-    opacity: 0; transform: translateY(26px);
-    transition: opacity 0.75s ease, transform 0.75s ease;
-  }
-  html.js .einblenden.sichtbar { opacity: 1; transform: none; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Normblick | Vom Gesetzeszitat zum amtlichen Wortlaut</title>
+  <meta name="description" content="Normblick erkennt Fundstellen per OCR-Lupe und öffnet nach einem Klick den amtlichen Wortlaut. Native Mac-App, lokaler Gesetzesbestand. Testzugang anfragen.">
+  <link rel="canonical" href="https://normblick.luneq.eu/">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="Normblick">
+  <meta property="og:title" content="Normblick | Fundstelle sehen. Wortlaut lesen.">
+  <meta property="og:description" content="Wahltaste halten, Fundstelle erkennen, mit einem Klick den amtlichen Wortlaut öffnen. Native macOS-App mit lokalem Gesetzesbestand.">
+  <meta property="og:url" content="https://normblick.luneq.eu/">
+  <meta property="og:image" content="https://normblick.luneq.eu/assets/shots/gesetze-hell.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1120">
+  <meta property="og:image:alt" content="Normblick zeigt § 823 BGB mit Paragraphenliste und amtlichem Wortlaut.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/workflow.css">
+  <script src="assets/workflow.js" defer></script>
+  <script src="assets/site.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#inhalt" data-od-id="skip-link">Zum Inhalt</a>
+  <header class="site-header" data-od-id="site-header">
+    <div class="wrap nav-row">
+      <a class="wordmark" href="index.html" aria-label="Normblick, Startseite" data-od-id="home-link"><img src="assets/icon-180.png" alt="" width="38" height="38">Normblick</a>
+      <button class="menu-toggle" type="button" aria-controls="hauptnavigation" aria-expanded="false" data-od-id="menu-toggle" hidden>Menü</button>
+      <nav id="hauptnavigation" class="main-nav" aria-label="Hauptnavigation" data-od-id="main-navigation">
+        <a href="#ablauf" data-od-id="nav-workflow">So funktioniert’s</a>
+        <a href="#funktionen" data-od-id="nav-app">Die App</a>
+        <a href="#fragen" data-od-id="nav-faq">Fragen</a>
+        <a class="nav-contact" href="#testzugang" data-od-id="nav-test">Testphase <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
 
-<nav class="oben">
-  <div class="wrap">
-    <a class="name" href="#"><img src="assets/favicon.png" alt="" width="24" height="24">Normblick</a>
-    <div class="links">
-      <a href="#ablauf">So funktioniert’s</a>
-      <a href="#funktionen">Funktionen</a>
-      <a href="#bestand">Der Bestand</a>
-      <a href="#preis">Preis</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <img class="icon" src="assets/icon-180.png" alt="App-Icon von Normblick" width="84" height="84">
-    <h1>Normblick</h1>
-    <p class="unter">Gesetze direkt vom Bildschirm</p>
-    <p class="versprechen">Wo ein Gesetzeszitat steht — im Schriftsatz, im Urteil, in der Mail — hält man
-      die Wahltaste: Die Lupe liest die Norm und zeigt sofort den amtlichen Wortlaut, die zitierte Stelle
-      hervorgehoben. Ohne Umweg, ohne Kopieren, ohne Datenbank-Recherche.</p>
-    <div class="aktionen">
-      <span class="knopf gefuellt">Demnächst im Mac&nbsp;App&nbsp;Store</span>
-      <a class="knopf leise" href="#support">Jetzt kostenlos testen</a>
-    </div>
-    <div class="hero-bild">
-      <img src="assets/shots/gesetze-hell.jpg" alt="Das Gesetzesfenster von Normblick mit § 823 BGB: Inhaltsverzeichnis links, amtlicher Wortlaut rechts" width="1600" height="1120">
-    </div>
-  </div>
-</header>
-
-<section id="ablauf">
-  <div class="wrap">
-    <div class="kopf einblenden">
-      <span class="marke">So funktioniert’s</span>
-      <h2>Drei Handgriffe, ein Wortlaut</h2>
-    </div>
-    <div class="schritte">
-      <div class="schritt einblenden">
-        <span class="nr">1</span>
-        <h3>Zitat sehen</h3>
-        <p>Eine Norm wird zitiert — irgendwo auf dem Bildschirm. In einem Dokument, in einer
-          E-Mail, in einem Portal.</p>
-      </div>
-      <div class="schritt einblenden">
-        <span class="nr">2</span>
-        <h3>Wahltaste halten</h3>
-        <p>Eine Lupe erscheint am Cursor und liest die Fundstelle. Kein Ausschneiden,
-          kein Wechseln des Programms. <span class="taste">⌥ Wahltaste</span></p>
-      </div>
-      <div class="schritt einblenden">
-        <span class="nr">3</span>
-        <h3>Wortlaut lesen</h3>
-        <p>Der amtliche Text steht da — mit der zitierten Stelle hervorgehoben, mit
-          Satzzählung und Fußnoten.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="funktionen" style="padding-top: 0;">
-  <div class="wrap">
-    <div class="kopf einblenden">
-      <span class="marke">Funktionen</span>
-      <h2>Gebaut für die tägliche Arbeit mit dem Recht</h2>
-    </div>
-
-    <div class="feature">
-      <div class="text einblenden">
-        <span class="marke">Satz-Hervorhebung</span>
-        <h3>Nicht der Paragraph — der Satz</h3>
-        <p>„§ 11 Abs. 1 Satz 4“ meint eine bestimmte Stelle, nicht den ganzen Absatz.
-          Normblick hebt genau sie hervor, mit hochgestellten Satzzahlen wie im
-          amtlichen Druck — und zeigt den Absatz im Zusammenhang.</p>
-      </div>
-      <div class="bild einblenden">
-        <div class="paar">
-          <img src="assets/shots/ergebnis-hell.png" alt="Ergebnisfenster in heller Erscheinung: Absatz 1 des § 11 EStG mit hervorgehobenem Satz 4" width="1000" height="750">
-          <img src="assets/shots/ergebnis-dunkel.png" alt="Dasselbe Ergebnisfenster in dunkler Erscheinung" width="1000" height="750">
+  <main id="inhalt" tabindex="-1">
+    <section class="hero wrap" aria-labelledby="hero-title" data-od-id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Die native Mac-App für Gesetzesfundstellen</p>
+        <h1 id="hero-title" data-od-id="hero-title">Fundstelle sehen.<br>Wortlaut lesen.</h1>
+        <p class="hero-intro">Wahltaste halten. Fundstelle erkennen. Mit einem Klick den amtlichen Wortlaut öffnen, bis zum Satz hervorgehoben.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="mailto:studio@luneq.eu?subject=Normblick%20-%20Testzugang%20anfragen" data-od-id="hero-test-request">Testzugang anfragen <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#ablauf" data-od-id="hero-workflow-link">Bedienung ansehen <span aria-hidden="true">↓</span></a>
         </div>
       </div>
+      <figure class="hero-shot" data-od-id="hero-result">
+        <a class="image-link result-image" href="assets/shots/ergebnis-hell.webp" data-enlarge data-title="Das Ergebnisfenster" data-caption="Echte App-Aufnahme: Absatz 1, Satz 4 ist im Ergebnisfenster hervorgehoben. Der übrige Absatz bleibt im Zusammenhang lesbar." data-od-id="hero-enlarge" aria-label="Ergebnisfenster vergrößern">
+          <img src="assets/shots/ergebnis-hell.webp" alt="Echtes Normblick-Ergebnisfenster mit der Markierung Absatz 1, Satz 4 und dem umgebenden Absatz." width="1000" height="750" fetchpriority="high">
+        </a>
+        <figcaption><span>Die zitierte Stelle. Im Zusammenhang.</span><a class="text-link" href="assets/shots/ergebnis-hell.webp" data-enlarge data-title="Das Ergebnisfenster" data-caption="Echte App-Aufnahme: Absatz 1, Satz 4 ist hervorgehoben." data-od-id="hero-fullscreen">Vergrößern <span aria-hidden="true">↗</span></a></figcaption>
+      </figure>
+    </section>
+
+    <div class="product-context wrap" data-od-id="product-context">
+      <p>macOS 26 oder neuer <span class="separator" aria-hidden="true">/</span> Apple Silicon</p>
+      <p>Aktuell in der Testphase. Noch kein App-Store-Release.</p>
     </div>
 
-    <div class="feature bild-links">
-      <div class="text einblenden">
-        <span class="marke">Gesetzesfenster</span>
-        <h3>Das ganze Gesetz, wenn man es braucht</h3>
-        <p>Inhaltsverzeichnis, Wortsuche, Fundstellensuche und Verlauf — mit einem Klick
-          von der Fundstelle in den ganzen Text und wieder zurück an dieselbe Stelle.</p>
+    <section id="ablauf" class="section wrap workflow" aria-labelledby="workflow-title" data-od-id="workflow-section">
+      <div class="workflow-intro">
+        <div class="option-key" aria-hidden="true">⌥</div>
+        <h2 id="workflow-title" data-od-id="workflow-title">Das Zitat steht schon da.<br>Der Wortlaut ist nah.</h2>
+        <p>Im PDF, im Schriftsatz oder in einer anderen App: Normblick liest die Fundstelle dort, wo Sie gerade arbeiten.</p>
+        <p class="citation-example">Zum Beispiel <strong>§ 11 Abs. 1 S. 4 EStG</strong></p>
       </div>
-      <div class="bild einblenden">
-        <img src="assets/shots/suche-hell.jpg" alt="Gesetzesfenster mit aktiver Wortsuche im BGB" width="1600" height="1120">
+      <ol class="workflow-steps">
+        <li data-od-id="workflow-hold">
+          <h3>Wahltaste halten</h3>
+          <p>Halten Sie <kbd>⌥</kbd> gedrückt. Die OCR-Lupe erscheint und erkennt die Fundstelle unter dem Mauszeiger.</p>
+        </li>
+        <li data-od-id="workflow-click">
+          <h3>Den Treffer mit einem Klick bestätigen</h3>
+          <p>Erst Ihr Klick öffnet den amtlichen Wortlaut. Das Halten der Taste allein öffnet noch keinen Text.</p>
+        </li>
+        <li data-od-id="workflow-read">
+          <h3>Die genaue Stelle lesen</h3>
+          <p>Absatz und Satz werden im Text hervorgehoben. Lassen Sie die Wahltaste los, wird die Lupe ausgeblendet.</p>
+        </li>
+      </ol>
+      <div class="workflow-demo" data-workflow-demo data-step="0" data-od-id="workflow-demo">
+        <div class="demo-header">
+          <div><h3>Einmal selbst durchgehen.</h3><p class="small">Illustration des Ablaufs · keine Bildschirmaufnahme im Browser</p></div>
+          <button class="button" type="button" data-demo-action hidden>Lupe zeigen <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="demo-stage">
+          <div class="demo-document">
+            <p class="demo-document-label">Beispieldokument</p>
+            <div class="demo-lines" aria-hidden="true"><span></span><span></span></div>
+            <p>Die zitierte Vorschrift lautet<br><span class="demo-citation">§ 11 Abs. 1 S. 4 EStG</span>.</p>
+            <p>Die betreffende Passage soll im amtlichen Text nachgelesen werden.</p>
+            <div class="demo-lines" aria-hidden="true"><span></span><span></span></div>
+            <div class="demo-loupe" aria-hidden="true" hidden><span class="demo-loupe-label">Fundstelle erkannt</span><strong>§ 11 Abs. 1 S. 4 EStG</strong><span>⌥ halten · mit einem Klick öffnen</span></div>
+          </div>
+          <div class="demo-result-stage">
+            <div class="demo-placeholder" hidden><span aria-hidden="true">§</span><p>Der Wortlaut erscheint<br>erst nach Ihrem Klick.</p></div>
+            <a class="image-link demo-result" href="assets/shots/ergebnis-hell.webp" data-enlarge data-title="Der bestätigte Treffer" data-caption="Echte App-Aufnahme: Die zitierte Stelle ist im Ergebnisfenster hervorgehoben." aria-label="Echtes Ergebnisfenster vergrößern">
+              <img src="assets/shots/ergebnis-hell.webp" alt="Echtes Normblick-Ergebnisfenster zu § 11 EStG, Absatz 1 und Satz 4 hervorgehoben." width="1000" height="750" loading="lazy" decoding="async">
+            </a>
+          </div>
+        </div>
+        <div class="demo-footer"><p class="small" role="status" aria-live="polite" aria-atomic="true" data-demo-status>Vom Zitat im Dokument zum amtlichen Text. Die Aufnahme rechts zeigt das echte Ergebnisfenster.</p><span class="demo-progress" aria-hidden="true"><i></i><i></i><i></i></span></div>
       </div>
-    </div>
+    </section>
 
-    <div class="feature">
-      <div class="text einblenden">
-        <span class="marke">Erscheinungen</span>
-        <h3>Hell am Tag, dunkel in der Nacht</h3>
-        <p>Beide Erscheinungen sind durchgezeichnet — bis in die Schrift des Textes.
-          Kein Umrüsten, kein Nacharbeiten: das Fenster folgt dem System.</p>
+    <section id="funktionen" class="section app-section" aria-labelledby="app-title" data-od-id="app-section">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2 id="app-title" data-od-id="app-title">Von der Fundstelle<br>zum ganzen Gesetz.</h2>
+          <p>Für einen Satz genügt das Ergebnisfenster. Für den Zusammenhang gibt es den lokalen Gesetzesbrowser mit Paragraphenliste und Suche.</p>
+        </div>
+        <div class="gallery" data-od-id="screenshot-gallery">
+          <div class="gallery-controls" role="tablist" aria-label="App-Aufnahmen" hidden>
+            <button id="tab-library" type="button" role="tab" aria-selected="true" aria-controls="panel-library" tabindex="0" data-od-id="gallery-tab-library">Bibliothek</button>
+            <button id="tab-search" type="button" role="tab" aria-selected="false" aria-controls="panel-search" tabindex="-1" data-od-id="gallery-tab-search">Wortsuche</button>
+            <button id="tab-dark" type="button" role="tab" aria-selected="false" aria-controls="panel-dark" tabindex="-1" data-od-id="gallery-tab-dark">Dunkle Ansicht</button>
+            <button id="tab-result" type="button" role="tab" aria-selected="false" aria-controls="panel-result" tabindex="-1" data-od-id="gallery-tab-result">Satzmarkierung</button>
+          </div>
+          <div id="panel-library" class="gallery-panel" data-od-id="gallery-library"><figure>
+            <a class="image-link" href="assets/shots/gesetze-hell.webp" data-enlarge data-title="Der Gesetzesbrowser" data-caption="§ 823 BGB: links die Paragraphenliste, rechts der amtliche Wortlaut. Die ausgewählte Vorschrift ist hervorgehoben." data-od-id="enlarge-library" aria-label="Gesetzesbrowser mit § 823 BGB vergrößern"><img src="assets/shots/gesetze-hell.webp" alt="Heller Normblick-Gesetzesbrowser: § 823 BGB ist in der Paragraphenliste ausgewählt und rechts im amtlichen Text hervorgehoben." width="2000" height="1400" loading="lazy" decoding="async"></a>
+            <figcaption><p><strong>§ 823 BGB, im Kontext.</strong> Paragraphenliste und amtlicher Text nebeneinander.</p><a class="text-link" href="assets/shots/gesetze-hell.webp" data-enlarge data-title="Der Gesetzesbrowser" data-caption="§ 823 BGB mit Paragraphenliste und amtlichem Text." data-od-id="library-fullscreen">Vergrößern <span aria-hidden="true">↗</span></a></figcaption>
+          </figure></div>
+          <div id="panel-search" class="gallery-panel" data-od-id="gallery-search"><figure>
+            <a class="image-link" href="assets/shots/suche-hell.webp" data-enlarge data-title="Wortsuche im Gesetz" data-caption="Die Suche nach Schadensersatz im BGB zeigt Fundstellen in der Liste. Der ausgewählte Treffer § 53 ist im Text hervorgehoben." data-od-id="enlarge-search" aria-label="Wortsuche nach Schadensersatz vergrößern"><img src="assets/shots/suche-hell.webp" alt="Normblick mit der Wortsuche Schadensersatz im BGB. Die Trefferliste steht links, der ausgewählte § 53 rechts." width="2000" height="1400" loading="lazy" decoding="async"></a>
+            <figcaption><p><strong>Nach Worten suchen.</strong> „Schadensersatz“ im BGB, mit Treffern und zugehörigem Text.</p><a class="text-link" href="assets/shots/suche-hell.webp" data-enlarge data-title="Wortsuche im Gesetz" data-caption="Wortsuche Schadensersatz im BGB, mit § 53 als ausgewähltem Treffer." data-od-id="search-fullscreen">Vergrößern <span aria-hidden="true">↗</span></a></figcaption>
+          </figure></div>
+          <div id="panel-dark" class="gallery-panel" data-od-id="gallery-dark"><figure>
+            <a class="image-link" href="assets/shots/gesetze-dunkel.webp" data-enlarge data-title="Die dunkle Ansicht" data-caption="Derselbe Gesetzesbrowser in dunkler Erscheinung. § 823 BGB bleibt in der Liste und im amtlichen Text hervorgehoben." data-od-id="enlarge-dark" aria-label="Dunklen Gesetzesbrowser vergrößern"><img src="assets/shots/gesetze-dunkel.webp" alt="Dunkler Normblick-Gesetzesbrowser mit § 823 BGB und derselben Gliederung wie in der hellen Ansicht." width="2000" height="1400" loading="lazy" decoding="async"></a>
+            <figcaption><p><strong>Hell oder dunkel.</strong> Derselbe Wortlaut, dieselbe Orientierung.</p><a class="text-link" href="assets/shots/gesetze-dunkel.webp" data-enlarge data-title="Die dunkle Ansicht" data-caption="§ 823 BGB im dunklen Gesetzesbrowser." data-od-id="dark-fullscreen">Vergrößern <span aria-hidden="true">↗</span></a></figcaption>
+          </figure></div>
+          <div id="panel-result" class="gallery-panel result-panel" data-od-id="gallery-result"><figure>
+            <a class="image-link" href="assets/shots/ergebnis-hell.webp" data-enlarge data-title="Bis zum einzelnen Satz" data-caption="Das echte Ergebnisfenster zeigt die Markierung Absatz 1, Satz 4. Die hochgestellten Satzzahlen helfen bei der Orientierung im Absatz." data-od-id="enlarge-result" aria-label="Ergebnisfenster mit Satzmarkierung vergrößern"><img src="assets/shots/ergebnis-hell.webp" alt="Normblick-Ergebnisfenster in heller Erscheinung: Absatz 1, Satz 4 ist farblich hervorgehoben; der restliche Absatz bleibt lesbar." width="1000" height="750" loading="lazy" decoding="async"></a>
+            <figcaption><p><strong>Bis zum einzelnen Satz.</strong> Die zitierte Stelle wird im umgebenden Absatz markiert.</p><a class="text-link" href="assets/shots/ergebnis-hell.webp" data-enlarge data-title="Bis zum einzelnen Satz" data-caption="Ergebnisfenster mit Absatz- und Satzmarkierung." data-od-id="result-fullscreen">Vergrößern <span aria-hidden="true">↗</span></a></figcaption>
+          </figure></div>
+        </div>
+        <dl class="browser-guide">
+          <div data-od-id="browser-collections"><dt>Sammlung wählen</dt><dd>Die Sammlungen links erschließen den lokalen Bestand.</dd></div>
+          <div data-od-id="browser-search"><dt>Vorschrift finden</dt><dd>Paragraphenliste und Suche helfen beim Navigieren im Gesetz.</dd></div>
+          <div data-od-id="browser-read"><dt>Im Zusammenhang lesen</dt><dd>Rechts steht der amtliche Text, mit der gesuchten Stelle hervorgehoben.</dd></div>
+        </dl>
       </div>
-      <div class="bild einblenden">
-        <img src="assets/shots/gesetze-dunkel.jpg" alt="Das Gesetzesfenster von Normblick in dunkler Erscheinung" width="1600" height="1120">
+    </section>
+
+    <section id="privatsphaere" class="section wrap local-section" aria-labelledby="local-title" data-od-id="local-section">
+      <div class="section-heading">
+        <p class="eyebrow">Lokal auf Ihrem Mac</p>
+        <h2 id="local-title" data-od-id="local-title">Nachschlagen braucht<br>keine Cloud.</h2>
+        <p>Die OCR-Erkennung, die Normsuche und der Gesetzesbestand liegen auf dem Gerät. Der Wortlaut ist auch ohne Internetverbindung erreichbar.</p>
       </div>
-    </div>
-
-    <div class="feature bild-links">
-      <div class="text einblenden">
-        <span class="marke">Spotlight &amp; Zwischenablage</span>
-        <h3>Gefunden wird geöffnet</h3>
-        <p>Normblick meldet seine Fundstellen an die Systemsuche — ein Spotlight-Treffer
-          öffnet das Gesetz an der richtigen Stelle. Und was in der Zwischenablage
-          liegt, wird mit Steuerung&nbsp;+&nbsp;Befehl&nbsp;+&nbsp;L nachgeschlagen.</p>
+      <div class="local-grid">
+        <div class="local-facts" data-od-id="privacy-facts">
+          <h3>Für vertrauliche Arbeit</h3>
+          <p>Normblick nutzt eine lokale SQLite-Datenbank. OCR und Normsuche erfolgen lokal, ohne Telemetrie.</p>
+          <p>Beim Einrichten erlauben Sie Bildschirmaufnahme und Bedienungshilfen. Diese Berechtigungen ermöglichen die Lupe und ihre Bedienung.</p>
+          <p class="small">Offline gilt für das Nachschlagen. Externe Quellenlinks, Updates oder eine E-Mail-Anfrage sind separate Vorgänge.</p>
+        </div>
+        <div class="collection-facts" id="bestand" data-od-id="collection-facts">
+          <h3>Ein Bestand für den Arbeitsalltag</h3>
+          <ul class="collection-list">
+            <li><span>Bundesrecht</span><span>Deutschland</span></li>
+            <li><span>Landesrecht</span><span>Alle 16 Länder</span></li>
+            <li><span>EU-Recht</span><span>Ausgewählte Rechtsakte</span></li>
+            <li><span>EMRK</span><span>Europarat</span></li>
+          </ul>
+          <p class="small inventory">Datenbestand September 2026:<br>382.015 Einträge aus 19 Quellen.</p>
+        </div>
       </div>
-      <div class="bild einblenden">
-        <img src="assets/shots/spotlight.jpg" alt="Ein über Spotlight geöffneter Treffer: § 823 BGB im Gesetzesfenster" width="1600" height="1120">
+    </section>
+
+    <section id="bedienung" class="section shortcuts-section" aria-labelledby="shortcuts-title" data-od-id="shortcuts-section">
+      <div class="wrap shortcuts-grid">
+        <div><h2 id="shortcuts-title" data-od-id="shortcuts-title">Auch ohne Lupe<br>direkt zur Norm.</h2><p>Weitere Wege in den amtlichen Text, passend zu Ihrer Arbeitsweise.</p></div>
+        <div class="shortcut-list">
+          <article data-od-id="shortcut-clipboard"><div class="shortcut-keys" aria-label="Control, Befehl und L"><kbd>⌃</kbd><kbd>⌘</kbd><kbd>L</kbd></div><h3>Aus der Zwischenablage</h3><p>Fundstelle kopieren. <span class="keep-together">Control-Cmd-L (⌃⌘L)</span> drücken. Normblick schlägt den kopierten Verweis nach.</p></article>
+          <article data-od-id="shortcut-spotlight"><h3>Über Spotlight</h3><p>Eine App-Fundstelle in Spotlight auswählen. Normblick öffnet das Gesetz an der zugehörigen Stelle.</p></article>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="feature">
-      <div class="text einblenden">
-        <span class="marke">Offline &amp; Privatsphäre</span>
-        <h3>Nichts verlässt das Gerät</h3>
-        <p>Der gesamte Bestand liegt lokal auf dem Mac. Kein Konto, keine Anmeldung,
-          keine Telemetrie — und Fehlerberichte bleiben auf dem Gerät, bis man sie
-          selbst verschickt.</p>
+    <section id="fragen" class="section wrap faq-section" aria-labelledby="faq-title" data-od-id="faq-section">
+      <div><h2 id="faq-title" data-od-id="faq-title">Gut zu wissen.</h2><p>Vor dem ersten Nachschlagen.</p></div>
+      <div class="faq-list">
+        <details data-od-id="faq-system"><summary>Auf welchen Macs läuft Normblick?</summary><div><p>Normblick ist eine native macOS-Menüleisten-App für macOS 26 oder neuer und Apple Silicon.</p></div></details>
+        <details data-od-id="faq-access"><summary>Kann ich Normblick schon herunterladen?</summary><div><p>Es gibt derzeit noch keinen App-Store-Release und keinen öffentlichen Downloadlink. Sie können per E-Mail an studio@luneq.eu einen Testzugang anfragen.</p><p>Preise und das endgültige Angebot stehen noch nicht fest.</p></div></details>
+        <details data-od-id="faq-ocr"><summary>Öffnet das Halten der Wahltaste schon den Text?</summary><div><p>Nein. Halten Sie die Wahltaste, erscheint die OCR-Lupe und erkennt die Fundstelle unter dem Mauszeiger. Erst ein Klick bestätigt den Treffer und öffnet den Wortlaut. Loslassen blendet die Lupe aus.</p></div></details>
+        <details data-od-id="faq-permissions"><summary>Welche Berechtigungen sind erforderlich?</summary><div><p>Beim Einrichten müssen Bildschirmaufnahme und Bedienungshilfen erlaubt werden. OCR-Erkennung und Normsuche laufen lokal auf Ihrem Mac.</p></div></details>
+        <details data-od-id="faq-offline"><summary>Was funktioniert ohne Internet?</summary><div><p>Sie können den lokalen Bestand durchsuchen und Normen nachschlagen. Die lokale SQLite-Datenbank, OCR und Normsuche brauchen dafür keine Verbindung. Externe Quellenlinks, Updates und E-Mail sind davon getrennt.</p></div></details>
+        <details data-od-id="faq-coverage"><summary>Welche Rechtsgebiete und Quellen sind enthalten?</summary><div><p>Der aktuelle Bestand umfasst Bundesrecht, Landesrecht aller 16 Länder, ausgewählte EU-Rechtsakte und die EMRK. Das ist keine vollständige Abdeckung des EU-Rechts oder jeder denkbaren Norm.</p><p>Datenbestand September 2026: 382.015 Einträge aus 19 Quellen.</p></div></details>
+        <details data-od-id="faq-legal"><summary>Ersetzt Normblick die rechtliche Prüfung?</summary><div><p>Nein. Normblick dient zum Nachschlagen und bietet keine Rechtsberatung. Prüfen Sie Rechtsstand, Anwendbarkeit und die zugehörigen Quellen selbst.</p></div></details>
       </div>
-      <div class="bild einblenden" style="box-shadow:none; background:none; text-align:center;">
-        <img src="assets/icon-512.png" alt="App-Icon von Normblick" width="280" height="280" style="margin: 0 auto; border-radius: 64px; box-shadow: var(--schatten-leicht);">
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="bestand" class="bestand">
-  <div class="wrap schmal">
-    <div class="einblenden">
-      <span class="marke">Der Bestand</span>
-      <h2>Was auf dem Mac liegt</h2>
-      <p>Monatlich gepflegt, als mitgelieferte Sammlung — kein Server, keine
-        Verbindung, kein Warten auf eine Antwort.</p>
-    </div>
-    <div class="zahlen einblenden">
-      <div class="zahl"><div class="wert">382.015</div><div class="name">Normen</div></div>
-      <div class="zahl"><div class="wert">19</div><div class="name">Quellen</div></div>
-      <div class="zahl"><div class="wert">16</div><div class="name">Bundesländer</div></div>
-      <div class="zahl"><div class="wert">Bund &amp; EU</div><div class="name">vollständig &amp; ausgewählt</div></div>
-      <div class="zahl"><div class="wert">EMRK</div><div class="name">Europarat</div></div>
-    </div>
-  </div>
-</section>
+    <section id="testzugang" class="section wrap test-section" aria-labelledby="test-title" data-od-id="test-section">
+      <img src="assets/icon-180.png" alt="" width="72" height="72" loading="lazy">
+      <h2 id="test-title" data-od-id="test-title">Normblick im Alltag erproben.</h2>
+      <p>Die App ist in der Testphase. Schreiben Sie an Luneq Studio, um einen Testzugang anzufragen.</p>
+      <a class="button primary" href="mailto:studio@luneq.eu?subject=Normblick%20-%20Testzugang%20anfragen" data-od-id="bottom-test-request">Testzugang anfragen <span aria-hidden="true">↗</span></a>
+      <p class="small">Öffnet Ihr E-Mail-Programm mit vorbereitetem Betreff.<br>macOS 26 oder neuer, Apple Silicon.</p>
+    </section>
+  </main>
 
-<section id="preis" class="preis">
-  <div class="wrap schmal">
-    <div class="einblenden">
-      <span class="marke">Preis</span>
-      <div class="gross">Jetzt kostenlos</div>
-      <p>Normblick ist in der Testphase frei — für alle, die mit dem Recht arbeiten.</p>
-      <p class="spater">Geplant ist eine einfache Staffel: eine Basisversion für 1,69&nbsp;€ einmalig
-        und eine vollständige Fassung mit allen Bundesländern und EU-Recht als günstiges
-        Monatsabo. Wer die kostenlose Fassung nutzt, verliert nichts davon.</p>
-    </div>
-  </div>
-</section>
+  <footer class="site-footer wrap" data-od-id="site-footer">
+    <div class="footer-main"><a class="footer-brand" href="index.html" data-od-id="footer-home">Normblick</a><p>Ein Werkzeug zum Nachschlagen.<br>Rechtsstand, Anwendbarkeit und Quellen selbst prüfen.</p><nav aria-label="Rechtliche Hinweise"><a href="impressum.html" data-od-id="footer-imprint">Impressum</a><a href="datenschutz.html" data-od-id="footer-privacy">Datenschutz</a></nav></div>
+    <p class="copyright">© 2026 Philipp Horn · Luneq Studio</p>
+  </footer>
 
-<section id="support" class="support">
-  <div class="wrap schmal">
-    <div class="einblenden">
-      <span class="marke">Support</span>
-      <h2>Jetzt kostenlos testen</h2>
-      <p>Schreiben Sie uns — wir schicken Ihnen die aktuelle Fassung und hören,
-        was in Ihrer Arbeit noch fehlt.</p>
-      <p><a class="mail" href="mailto:studio@luneq.eu">studio@luneq.eu</a></p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="zeile">
-      <div>© 2026 Philipp Horn · Luneq Studio</div>
-      <div class="links">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const beobachter = new IntersectionObserver((eintraege) => {
-    for (const e of eintraege) {
-      if (e.isIntersecting) { e.target.classList.add('sichtbar'); beobachter.unobserve(e.target); }
-    }
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.einblenden').forEach(el => beobachter.observe(el));
-</script>
-
+  <dialog id="bilddialog" class="image-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-caption" data-od-id="image-dialog">
+    <div class="dialog-top"><h2 id="dialog-title" data-od-id="dialog-title">App-Aufnahme</h2><button class="button" type="button" data-close data-od-id="dialog-close" autofocus>Schließen <span aria-hidden="true">×</span></button></div>
+    <div class="dialog-tools"><button class="button" type="button" aria-pressed="false" data-zoom data-od-id="dialog-zoom">Lesemodus</button><a class="text-link" id="dialog-original" href="assets/shots/gesetze-hell.webp" target="_blank" rel="noopener" data-od-id="dialog-original">Originalbild öffnen <span class="sr-only">(neuer Tab)</span><span aria-hidden="true">↗</span></a></div>
+    <p class="small" id="zoom-help">Lesemodus vergrößert die Schrift im Bild. Danach lässt sich der Bildausschnitt horizontal und vertikal verschieben.</p>
+    <div class="dialog-viewport" tabindex="0" role="region" aria-label="Vergrößerte App-Aufnahme, im Lesemodus scrollbar" data-od-id="dialog-image-viewport"><img id="dialog-image" alt="" width="2000" height="1400"><p class="image-error" role="status" hidden>Die Aufnahme konnte nicht geladen werden. Bitte öffnen Sie das Originalbild oder versuchen Sie es erneut.</p></div>
+    <p id="dialog-caption"></p>
+  </dialog>
 </body>
 </html>
