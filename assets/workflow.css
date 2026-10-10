@@ -47,6 +47,10 @@
 }
 .lens-demo[data-state="scanning"] .lens-stage,
 .lens-demo[data-state="scanning"] .lens-stage * { cursor: none; }
+.lens-demo[data-state="scanning"] .lens-result,
+.lens-demo[data-state="scanning"] .lens-result * { cursor: auto; }
+.lens-demo[data-state="scanning"] .lens-result button,
+.lens-demo[data-state="scanning"] .lens-result a { cursor: pointer; }
 .lens-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 2px 0; }
 .lens-instruction { display: flex; gap: 12px; align-items: center; min-height: 48px; }
 .lens-instruction kbd { width: 38px; min-width: 38px; height: 36px; border-radius: 9px; font-size: 23px; border-color: var(--border); box-shadow: 0 2px 2px #00000005; }

@@ -6,6 +6,7 @@
   const demo = document.querySelector('[data-lens-demo]');
   if (!demo) return;
   const stage = demo.querySelector('[data-lens-stage]');
+  const documentArea = demo.querySelector('.lens-document');
   const lens = demo.querySelector('[data-selection-lens]');
   const dimming = demo.querySelector('.lens-dimming');
   const hole = demo.querySelector('[data-lens-hole]');
@@ -30,9 +31,12 @@
     }
   };
   let active = false;
+  let activation = null;
+  let hoverBlocked = false;
   let pinned = false;
   let pointerInside = false;
   let pointer = { x: 0, y: 0 };
+  let pointerClient = { x: 0, y: 0 };
   let lastCitation = citations[0];
   let center = { x: 0, y: 0 };
   let size = { width: 260, height: 34 };
@@ -41,7 +45,7 @@
   let held = false;
   let returnFocus = null;
   const clamp = (value, low, high) => Math.max(low, Math.min(value, high));
-  const initialMessage = 'Wahltaste halten. Lupe über eine Fundstelle legen. Klicken.';
+  const initialMessage = 'Cursor über den Schriftsatz bewegen und eine Fundstelle anklicken. Alternativ: Button oder Wahltaste halten.';
 
   const moveLens = (x, y) => {
     size.width = Math.min(size.width, stage.clientWidth - 16);
@@ -81,6 +85,9 @@
   };
   const stop = (focus = false, preview = false) => {
     active = false;
+    activation = null;
+    // Cancellation stays cancelled until the pointer leaves and re-enters the document.
+    hoverBlocked = !preview;
     closeResult(focus);
     demo.dataset.state = 'ready';
     action.setAttribute('aria-pressed', 'false');
@@ -90,17 +97,38 @@
     // Only the first visit shows a stationary preview. Cancellation really hides it.
     showLens(preview);
   };
-  const start = (citation = null) => {
-    closeResult();
+  const start = (citation = null, source = 'explicit') => {
+    if (source !== 'hover') closeResult();
     active = true;
+    activation = source;
+    hoverBlocked = false;
     demo.dataset.state = 'scanning';
     action.setAttribute('aria-pressed', 'true');
     action.textContent = 'Lupe beenden · Esc';
-    status.textContent = 'Lupe bewegen und klicken. Scrollen ändert die Breite, ⇧ + Scrollen die Höhe.';
+    status.textContent = source === 'hover'
+      ? 'Lupe bewegen und eine Fundstelle anklicken. Mit Esc beenden.'
+      : 'Lupe bewegen und klicken. Scrollen ändert die Breite, ⇧ + Scrollen die Höhe.';
     if (citation) { lastCitation = citation; overCitation(citation); }
     else if (pointerInside) moveLens(pointer.x, pointer.y);
     else overCitation(lastCitation);
     showLens(true);
+  };
+  const leaveDocument = () => {
+    pointerInside = false;
+    if (active && activation === 'hover') {
+      if (result.hidden) stop();
+      else {
+        active = false;
+        activation = null;
+        demo.dataset.state = 'result';
+        action.setAttribute('aria-pressed', 'false');
+        action.textContent = 'Andere Fundstelle ansehen ⌥';
+        const norm = norms[lastCitation.dataset.norm];
+        status.textContent = `${norm.label}: ${norm.detail} hervorgehoben. Der vollständige Paragraph ist im Ergebnisfenster scrollbar.`;
+      }
+    }
+    hoverBlocked = false;
+    showLens(false);
   };
   const placeResult = () => {
     result.style.maxHeight = `${stage.clientHeight - 28}px`;
@@ -187,12 +215,28 @@
   });
   stage.addEventListener('pointermove', event => {
     if (event.pointerType === 'touch') return;
-    pointerInside = true;
+    pointerClient = { x: event.clientX, y: event.clientY };
+    // Never replace a readable result with a scanner just because it is hovered.
+    if (result.contains(event.target)) { leaveDocument(); return; }
+    pointerInside = documentArea.contains(event.target);
     const parent = stage.getBoundingClientRect();
     pointer = { x: event.clientX - parent.left, y: event.clientY - parent.top };
+    if (!pointerInside) {
+      leaveDocument();
+      return;
+    }
+    if (!active && !hoverBlocked) start(null, 'hover');
     if (active) { moveLens(pointer.x, pointer.y); showLens(true); }
   });
-  stage.addEventListener('pointerleave', () => { pointerInside = false; if (active) showLens(false); });
+  stage.addEventListener('pointerleave', leaveDocument);
+  window.addEventListener('scroll', () => {
+    if (!active || activation !== 'hover' || !pointerInside) return;
+    const target = document.elementFromPoint(pointerClient.x, pointerClient.y);
+    if (!target || !documentArea.contains(target)) { leaveDocument(); return; }
+    const parent = stage.getBoundingClientRect();
+    pointer = { x: pointerClient.x - parent.left, y: pointerClient.y - parent.top };
+    moveLens(pointer.x, pointer.y);
+  }, { passive: true });
   stage.addEventListener('click', event => {
     if (result.contains(event.target)) return;
     if (active) {
@@ -207,7 +251,8 @@
     stop();
   });
   stage.addEventListener('wheel', event => {
-    if (!active || event.ctrlKey || event.metaKey) return;
+    // Passive discovery must not hijack page scrolling. Resize only after explicit activation.
+    if (!active || activation === 'hover' || event.ctrlKey || event.metaKey) return;
     event.preventDefault();
     const delta = -event.deltaY * (event.deltaMode === 0 ? .6 : 4);
     if (event.shiftKey) size.height = clamp(size.height + delta, 26, 400);
