@@ -14,6 +14,6 @@ Die App befindet sich in der Testphase. Noch kein öffentlicher Download oder Ap
 
 Statisches HTML/CSS/JavaScript, keine Build-Abhängigkeiten, keine externen Fonts oder Tracker. Echte App-Aufnahmen in `assets/shots/`, als WebP für die Website optimiert. Galerie und Bilddialog sind progressive Erweiterungen; die Produktinhalte bleiben ohne JavaScript verfügbar.
 
-Der ursprüngliche Entwurf wurde in OpenDesign mit Codex `gpt-6.1-sol`, Reasoning `high`, erstellt. Die Ablauf-Demo ist ausdrücklich eine Illustration; das Ergebnisbild ist eine echte App-Aufnahme. Gestaltungsrichtung: `DESIGN.md`.
+Der ursprüngliche Entwurf wurde in OpenDesign erstellt. Der Hero wurde durch eine bedienbare Simulation der tatsächlichen Lupenfunktion ersetzt: zwei Fundstellen im Vorschautext, Glaskapsel am Zeiger, Wahltaste, Größenänderung und bestätigender Klick. Die Browser-Simulation nutzt zwei hinterlegte BGB-Texte; sie führt keine OCR aus. Die Nachschlagegalerie darunter zeigt echte App-Aufnahmen. Gestaltungsrichtung und native Referenzgeometrie: `DESIGN.md`.
 
 Lokale Vorschau: `python3 -m http.server 8877 --bind 127.0.0.1`.

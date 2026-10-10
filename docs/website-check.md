@@ -9,7 +9,11 @@ Stand: 10. Oktober 2026. Statische Produktwebsite, kein App-Release-Test.
 - axe-core: keine gemeldeten WCAG-A/AA- oder Best-Practice-Verstöße in den geprüften Zuständen. Automatisierte Prüfung ersetzt keine vollständige manuelle Barrierefreiheitsprüfung.
 - Inhalte ohne JavaScript auf 390 und 1440 px geprüft.
 - Helle und dunkle Darstellung, mobile Menübedienung mit Escape, Skiplink, Galerie mit Pfeiltasten/Home/End, Bilddialog, Lesemodus und Fokus-Rückkehr praktisch geprüft.
-- Ablauf-Demo: Erkennen öffnet noch keinen Text; der zweite Klick zeigt die echte Ergebnisaufnahme. Zurücksetzen und reduzierte Bewegung geprüft.
+- Hero-Lupe: beide Fundstellen (§ 433 Abs. 1 S. 1 und § 823 Abs. 1 BGB), Wahltaste-Haltedauer, Loslassen ohne Abbruch, kurzes Antippen, modifizierte Tasten, Größenänderung per Scrollen/Umschalt-Scrollen, leere Auswahl, Esc/Rechtsklick, Tastatur-Fokus und Festhalten geprüft. Kein Wortlaut ohne bestätigenden Klick.
+- Zusätzlicher echter Browser-Interaktionstest: Chromium und WebKit, jeweils 67/67 Checks erfolgreich. Touch mit zwei Taps auf 320, 375, 390 und 768 px; Ergebnis bleibt innerhalb der Demo, kein horizontaler Überlauf. Read-only-Abgleich beider angezeigter BGB-Absätze mit der App-Datenbank.
+- Volltext-Ergänzung: § 433 und § 823 BGB jeweils mit beiden Absätzen vollständig gegen die Offline-Datenbank read-only abgeglichen. Nur die zitierte Stelle bleibt hervorgehoben. Der Wortlaut ist per Scrollrad und Tastatur bis zum Ende erreichbar; Kopfzeile und Buttons bleiben fest. Erneutes Öffnen setzt die Scrollposition zurück.
+- Volltext-/Scrollprüfung: Chromium **192/192**, WebKit **192/192** Checks, jeweils 16 Kombinationen aus beiden Paragraphen, 320/390/768/1440 px und Hell/Dunkel. Erneute allgemeine Seitenprüfung ohne Fehler: 24 responsive Fälle, 8 axe-Prüfungen, 8 Ohne-JavaScript-Fälle und 4 Interaktionsfälle. Berichte unter `~/.hermes/cache/scratch/normblick-fullparagraph-final-{chromium,webkit,regression}/`.
+- Separate Responsive-/Accessibility-Prüfung: 24 Seiten-/Viewportfälle, 8 axe-Fälle, 8 JavaScript-off-Fälle, 4 Themen-/Bedienungsfälle; Exit 0. Zusätzlich axe bei beiden offenen Normergebnissen in Hell/Dunkel auf 390 und 1440 px.
 - Bild-Ladefehler simuliert: sichtbare Fehlermeldung, Original-Link vorhanden, Dialog mit Escape schließbar.
 - E-Mail- und Telefonlinks auf gültige URI-Form geprüft; keine Nachricht versendet und kein Anruf ausgelöst.
 - Canonical, Beschreibung, vorhandenes Social-Bild, eindeutige IDs und lokale Ressourcen geprüft. Keine Cookies oder Drittanbieter-Requests durch die Seite im geprüften Kontext.
@@ -17,8 +21,8 @@ Stand: 10. Oktober 2026. Statische Produktwebsite, kein App-Release-Test.
 
 ## Sachliche Korrekturen
 
-OCR-Ablauf einschließlich bestätigendem Klick dargestellt. Kein erfundener Download, kein App-Store-Link und keine bereits fertigen Preise. Datenbestand mit September 2026 gekennzeichnet; EU-Abdeckung ausdrücklich eine Auswahl. Datenschutz auf das tatsächlich festgestellte Hostinger-Hosting und E-Mail-Testanfragen abgestimmt. Impressumsdaten beibehalten; Telefonlink gegen studio.luneq.eu geprüft.
+Lupengeometrie und Bedienung gegen `ScannerOverlay.swift`, `OptionKeyWatcher.swift`, `KeyGesture.swift` und `NormOverlayPanel.swift` im App-Repo geprüft. Die vorherige Behauptung, Loslassen schließe die Lupe, entfernt. Berechtigungsangaben in Startseite und Datenschutz korrigiert: Bildschirmaufnahme erforderlich, Bedienungshilfen nicht. Kein erfundener Download, kein App-Store-Link und keine bereits fertigen Preise. Datenbestand mit September 2026 gekennzeichnet; EU-Abdeckung ausdrücklich eine Auswahl. Impressumsdaten beibehalten.
 
 ## Grenzen
 
-Browser-Prüfung ist keine Rechtsprüfung. Hosting-Vertrag, Auftragsverarbeitungsvereinbarung und betriebliche Löschprozesse sind nicht Gegenstand dieser UI-Prüfung. Die Website enthält echte App-Aufnahmen; die interaktive Ablauf-Illustration führt keine reale OCR im Browser aus.
+Browser-Prüfung ist keine Rechtsprüfung. Hosting-Vertrag, Auftragsverarbeitungsvereinbarung und betriebliche Löschprozesse sind nicht Gegenstand dieser UI-Prüfung. Die Website enthält echte App-Aufnahmen; die Hero-Simulation führt keine reale OCR im Browser aus. Die Glaskapsel wird mit Browser-Masken und Materialeffekten nachgebildet, nicht mit der nativen macOS-Glass-API gerendert. WebKit-Test ist ein Safari-Engine-Test, keine Bedienung des installierten Safari.
