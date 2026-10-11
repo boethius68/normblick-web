@@ -29,6 +29,8 @@ Lupengeometrie und Bedienung gegen `ScannerOverlay.swift`, `OptionKeyWatcher.swi
 
 ## Änderungen 11. Oktober 2026
 
+- Systemangaben: „Apple Silicon“ vollständig gestrichen (Vorgabe des Betreibers), es gilt nur noch „macOS 26 oder neuer“. Nicht als Anforderung zurückbringen; Intel-Build bei Bedarf nachgereicht. Betrifft Hero, Produkt-Kontextzeile, FAQ (sichtbar + JSON-LD), Testzugang-Abschluss und README.
+
 - Impressum: Telefonnummer vollständig entfernt (ausdrückliche Vorgabe des Betreibers: nicht veröffentlichen). Kontakt ist ausschließlich per E-Mail; die Nummer nicht in href, sichtbarem Text oder Dokumentation ergänzen. § 5 DDG verlangt nur eine elektronische Kontaktmöglichkeit.
 - Ungenutzte Rohbilder aus `assets/shots/` gelöscht (alle PNG/JPG außer `gesetze-hell.jpg` als og:image; `spotlight.*` waren 1:1-Dubletten von `gesetze-hell`). Verbleibend: 5 WebP + og-JPG.
 - `ergebnis-dunkel.webp` ergänzt und im Tab „Dunkle Ansicht“ als zweites Figure gezeigt.

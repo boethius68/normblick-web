@@ -1,6 +1,6 @@
 # Normblick – Website
 
-Öffentliche Website zur nativen macOS-App **Normblick** (macOS 26+, Apple Silicon).
+Öffentliche Website zur nativen macOS-App **Normblick** (macOS 26+).
 
 ## Deploy
 
