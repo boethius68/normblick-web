@@ -29,6 +29,8 @@ Lupengeometrie und Bedienung gegen `ScannerOverlay.swift`, `OptionKeyWatcher.swi
 
 ## Änderungen 11. Oktober 2026
 
+- FAQ „Welche Rechtsnormen sind enthalten?" (früher „Welche Rechtsgebiete…"): jetzt exakte Aufzählung nach Rechtskreisen. Gegen die Datenlage geprüft: 19 Quellen = gesetze-im-internet.de + 16 Landesportale + EUR-Lex + Europarat (`BIBLIOTHEK.md` Quellentabelle); EU-Katalog exakt die 25 Rechtsakte aus `EurLexImporter.swift` (EUV, AEUV, GRCh, DSGVO, Brüssel Ia/IIb, Rom I–III, EuErbVO, EuUntVO, EuInsVO, EuZustVO, EuBVO, EuMahnVO, EuVTVO, EuGFVO, FreizügRL, AMM-VO, KI-VO, DSA, DMA, Fluggastrechte-VO, Klausel-RL, VRRL); EMRK + ZP 1, 4, 6, 7, 12, 13, 16 (`README.md` „Die EMRK"). Bei Katalogänderungen im App-Repo diese FAQ und die JSON-LD-Antwort mitführen.
+
 - Systemangaben: „Apple Silicon“ vollständig gestrichen (Vorgabe des Betreibers), es gilt nur noch „macOS 26 oder neuer“. Nicht als Anforderung zurückbringen; Intel-Build bei Bedarf nachgereicht. Betrifft Hero, Produkt-Kontextzeile, FAQ (sichtbar + JSON-LD), Testzugang-Abschluss und README.
 
 - Impressum: Telefonnummer vollständig entfernt (ausdrückliche Vorgabe des Betreibers: nicht veröffentlichen). Kontakt ist ausschließlich per E-Mail; die Nummer nicht in href, sichtbarem Text oder Dokumentation ergänzen. § 5 DDG verlangt nur eine elektronische Kontaktmöglichkeit.
