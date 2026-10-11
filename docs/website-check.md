@@ -27,6 +27,15 @@ CSS-/JavaScript-URLs tragen einen Inhalts-Hash als `?v=…`. Vor jedem Push `pyt
 
 Lupengeometrie und Bedienung gegen `ScannerOverlay.swift`, `OptionKeyWatcher.swift`, `KeyGesture.swift` und `NormOverlayPanel.swift` im App-Repo geprüft. Die vorherige Behauptung, Loslassen schließe die Lupe, entfernt. Berechtigungsangaben in Startseite und Datenschutz korrigiert: Bildschirmaufnahme erforderlich, Bedienungshilfen nicht. Kein erfundener Download, kein App-Store-Link und keine bereits fertigen Preise. Datenbestand mit September 2026 gekennzeichnet; EU-Abdeckung ausdrücklich eine Auswahl. Impressumsdaten beibehalten.
 
+## Änderungen 11. Oktober 2026
+
+- Impressum: Telefonnummer vollständig entfernt (ausdrückliche Vorgabe des Betreibers: nicht veröffentlichen). Kontakt ist ausschließlich per E-Mail; die Nummer nicht in href, sichtbarem Text oder Dokumentation ergänzen. § 5 DDG verlangt nur eine elektronische Kontaktmöglichkeit.
+- Ungenutzte Rohbilder aus `assets/shots/` gelöscht (alle PNG/JPG außer `gesetze-hell.jpg` als og:image; `spotlight.*` waren 1:1-Dubletten von `gesetze-hell`). Verbleibend: 5 WebP + og-JPG.
+- `ergebnis-dunkel.webp` ergänzt und im Tab „Dunkle Ansicht“ als zweites Figure gezeigt.
+- JSON-LD im Head der Startseite: `SoftwareApplication` und `FAQPage` (Antworttexte = sichtbarer FAQ-Wortlaut, bei Textänderungen mitführen).
+- `srcset` mit 1200w-Varianten (`*-1200.webp`) für die drei großen Galeriebilder; `sizes` entsprechend der Galeriebreite (max. 1014 px).
+- `site.css`: Abstand zwischen zwei Figuren in derselben Galerie-Ansicht (`.gallery-panel figure + figure`).
+
 ## Grenzen
 
 Browser-Prüfung ist keine Rechtsprüfung. Hosting-Vertrag, Auftragsverarbeitungsvereinbarung und betriebliche Löschprozesse sind nicht Gegenstand dieser UI-Prüfung. Die Website enthält echte App-Aufnahmen; die Hero-Simulation führt keine reale OCR im Browser aus. Die Glaskapsel wird mit Browser-Masken und Materialeffekten nachgebildet, nicht mit der nativen macOS-Glass-API gerendert. WebKit-Test ist ein Safari-Engine-Test, keine Bedienung des installierten Safari.

@@ -127,6 +127,7 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
 .gallery-controls button[aria-selected="true"] { background: var(--surface); color: var(--fg); border-color: var(--border); box-shadow: 0 1px 3px #0000000c; }
 .gallery-controls button[aria-selected="true"]:hover { background: var(--surface); color: var(--fg); }
 .gallery-panel + .gallery-panel { margin-top: 56px; }
+.gallery-panel figure + figure { margin-top: 56px; }
 .gallery-enhanced .gallery-panel { margin-top: 0; }
 .gallery-panel img { width: 100%; }
 .gallery-panel .image-link { max-width: 100%; }
