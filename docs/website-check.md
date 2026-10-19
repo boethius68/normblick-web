@@ -43,3 +43,39 @@ Lupengeometrie und Bedienung gegen `ScannerOverlay.swift`, `OptionKeyWatcher.swi
 ## Grenzen
 
 Browser-Prüfung ist keine Rechtsprüfung. Hosting-Vertrag, Auftragsverarbeitungsvereinbarung und betriebliche Löschprozesse sind nicht Gegenstand dieser UI-Prüfung. Die Website enthält echte App-Aufnahmen; die Hero-Simulation führt keine reale OCR im Browser aus. Die Glaskapsel wird mit Browser-Masken und Materialeffekten nachgebildet, nicht mit der nativen macOS-Glass-API gerendert. WebKit-Test ist ein Safari-Engine-Test, keine Bedienung des installierten Safari.
+
+## Aktualisierung 19. Oktober 2026
+
+- Free-/Pro-Abgrenzung gegen `docs/entscheidungen/012-preispolitik.md`,
+  `014-lupenwoche-und-tageskontingent.md` und die aktuellen Store-Texte im
+  App-Projekt abgeglichen. Zielpreis als geplant, Testphase weiter sichtbar.
+- Paketmonat Oktober 2026 und gerundeter Umfang gegen das Seed-Manifest vom
+  17. Oktober geprüft. Kein Versprechen eines einheitlichen Rechtsstands
+  oder einer vollständigen EU-Abdeckung.
+- Alle 914 Katalogidentitäten gegen die tatsächlich verwendete
+  `Sources/Normblick/Katalog/free.json` geprüft. Öffentliche Titel kommen aus
+  `docs/katalog/free-aktuell.csv`; keine internen Vergleichsdaten veröffentlicht.
+- Aktuelle Diagnosebilder des Entwicklungsbaus aufgenommen und angesehen:
+  Gesetzesfenster hell/dunkel, Wortsuche „Verjährung“, Ergebnisfenster hell.
+  Die dunkle Galerie zeigt das Gesetzesfenster. Das dunkle Ergebnisfenster
+  wurde wegen eines Kontrastbefunds im Diagnosebild nicht übernommen.
+- Browserprüfung im In-App-Browser: Startseite bei 320, 390, 768, 1024, 1280
+  und 1440 px; Katalog bei 320, 390, 768, 1024 und 1440 px. Kein horizontaler
+  Überlauf. Desktop-Einstieg, Angebotsabschnitt, mobile Navigation und
+  Katalogsuche visuell angesehen.
+- Katalogsuche „buergerliches gesetzbuch“ findet BGB; Rechtskreisfilter EU,
+  Leerzustand und Zurücksetzen auf 914 Einträge praktisch geprüft.
+- Bestehende Lupen-Demo mit Touch-Einstieg, § 433 BGB, Festhalten und Schließen
+  geprüft; Wortsuche-Tab und Bilddialog geöffnet und geschlossen. Keine
+  protokollierten JavaScriptfehler in diesen Fällen.
+- Statische Prüfung aller fünf HTML-Seiten: lokale Ziele und Anker,
+  eindeutige IDs, gültige Inhaltsversionen und identischer FAQ-Wortlaut im
+  sichtbaren HTML und JSON-LD. Syntaxprüfung aller drei JavaScript-Dateien.
+- Datenschutz um die bereitgestellten Abschnitte zu StoreKit und lokaler
+  Lupenzählung ergänzt. Impressumsdaten unverändert.
+
+Die frühere Browsermatrix und axe-Prüfung oben wurde für diese Änderung nicht
+vollständig wiederholt. Die neue Katalogliste ist statisch im HTML enthalten;
+eine gesonderte Browserprüfung mit abgeschaltetem JavaScript erfolgte für diese
+Änderung nicht. App-Release, App-Store-Veröffentlichung und echte Store-Käufe
+sind nicht Gegenstand dieser Website-Aktualisierung.
