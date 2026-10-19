@@ -95,3 +95,6 @@ sind nicht Gegenstand dieser Website-Aktualisierung.
   keine protokollierten JavaScriptfehler.
 - Statische Seitenprüfung, Assetversionsprüfung und App-Katalogabgleich grün.
   Alle geänderten SVG-/PNG-/CSS-Referenzen tragen Inhaltsversionen.
+- Live-Abgleich nach Veröffentlichung: 28 tatsächlich referenzierte Seiten-
+  und Asset-URLs ohne inhaltliche Abweichung; PNG-Optimierung pixelgleich.
+  Neue Marke auf der öffentlichen Startseite nach Neuladen angesehen.
