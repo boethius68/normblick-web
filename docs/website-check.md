@@ -79,3 +79,19 @@ vollständig wiederholt. Die neue Katalogliste ist statisch im HTML enthalten;
 eine gesonderte Browserprüfung mit abgeschaltetem JavaScript erfolgte für diese
 Änderung nicht. App-Release, App-Store-Veröffentlichung und echte Store-Käufe
 sind nicht Gegenstand dieser Website-Aktualisierung.
+
+## Gewählte Bildmarke B2 – 19. Oktober 2026
+
+- B2 „Offener Fokus“ nach Auswahl des Betreibers als deterministische
+  Vektorkontur übernommen. Freistehendes SVG in allen fünf Website-Köpfen,
+  adaptives SVG-Favicon, neue PNG-Kachel für Apple-Touch-Icon und Fallback.
+- Dateien aus `../Normblick/scripts/make-icon.py --web …` erzeugt; keine
+  installierte Schrift erforderlich, keine externen Font-Requests. Die
+  Lizenz zur ausgeschriebenen Libre-Baskerville-Kontur ist mitgeführt.
+- Helle und dunkle SVG-Erscheinung in einer lokalen, anschließend entfernten
+  Prüfansicht visuell angesehen. Kleine Marke zusammen mit Wortmarke geprüft.
+- Startseite bei 320, 390, 768 und 1440 Pixeln kontrolliert. Übrige vier
+  Seiten bei 390 Pixeln: Markenbild geladen, kein horizontaler Überlauf,
+  keine protokollierten JavaScriptfehler.
+- Statische Seitenprüfung, Assetversionsprüfung und App-Katalogabgleich grün.
+  Alle geänderten SVG-/PNG-/CSS-Referenzen tragen Inhaltsversionen.

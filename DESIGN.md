@@ -1,6 +1,6 @@
 # Normblick
 
-Die Lupe ist das Key-Feature und trägt den Hero. Ein bedienbarer Vorschautext mit zwei echten Fundstellen zeigt den Wechsel vom Dokument zum amtlichen Wortlaut. Der Gesetzesbrowser folgt darunter, nicht als Ersatz für die Lupe. Das App-Icon bleibt unverändert.
+Die Lupe ist das Key-Feature und trägt den Hero. Ein bedienbarer Vorschautext mit zwei echten Fundstellen zeigt den Wechsel vom Dokument zum amtlichen Wortlaut. Der Gesetzesbrowser folgt darunter, nicht als Ersatz für die Lupe. Die Bildmarke wird nach der Auswahl vom 19. Oktober 2026 als B2 – Offener Fokus geführt: Paragraphzeichen und zwei leichte diagonale Winkel.
 
 - Grundlage: Modern minimal, mit dem aus dem echten Icon gewonnenen Markenrot. Tokens in `assets/site.css`; Herkunft in `brand-spec.md`.
 - Schrift: SF Pro Display und SF Pro Text mit System-Fallbacks. Keine Font-Downloads.
@@ -29,3 +29,11 @@ Die Lupe ist das Key-Feature und trägt den Hero. Ein bedienbarer Vorschautext m
 - Separater Free-Katalog mit Suche und Rechtskreisfilter. Statisches HTML bleibt
   die Inhaltsquelle und ohne JavaScript zugänglich. Keine simulierte App-Suche,
   keine OCR im Browser, kein neuer externer Dienst.
+
+## Übernahme der gewählten Bildmarke B2
+
+Die Website verwendet im Kopf die freistehende Vektormarke, nicht die verkleinerte
+App-Kachel. Tinte und Fokuswinkel passen sich im SVG an das Systemthema an. Die
+Kachel bleibt im Testzugang-Abschluss und als Apple-Touch-Icon. Die Wortmarke
+bleibt im Systemschrift-Stack, mit etwas ruhigerem Gewicht. Herkunft, Export und
+Lizenz stehen in `brand-spec.md`.

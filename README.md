@@ -55,3 +55,11 @@ node --check assets/katalog.js
 Die neuen App-Aufnahmen stammen aus dem Entwicklungsbau vom 19. Oktober 2026;
 Bilder sowie CSS und JavaScript tragen Inhaltsversionen in den HTML-Referenzen,
 damit der Hostingcache keinen alten Stand unter neuen Texten zeigt.
+
+## Bildmarke B2 – Offener Fokus
+
+Seit der Auswahl vom 19. Oktober 2026 verwenden Website und App-Icon dieselben
+Vektorkonturen. Die Web-Dateien werden aus dem App-Projekt exportiert; siehe
+`brand-spec.md`. Im Kopf steht die freigestellte adaptive SVG-Marke, als
+Apple-Touch-Icon und PNG-Fallback die App-Kachel. Alle geänderten Referenzen
+tragen Inhaltsversionen gegen veraltete Hostingcache-Dateien.
