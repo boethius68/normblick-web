@@ -41,7 +41,17 @@
     document.addEventListener('click', event => {
       if (!header.contains(event.target)) closeMenu();
     });
-    mobile.addEventListener('change', () => closeMenu());
+    // Hiding a focused control can blur it before the media-query change fires.
+    header.addEventListener('focusout', event => {
+      if (event.relatedTarget || event.target.getClientRects().length) return;
+      if (mobile.matches && nav.contains(event.target)) menuButton.focus();
+      else if (!mobile.matches && event.target === menuButton) nav.querySelector('a')?.focus();
+    });
+    mobile.addEventListener('change', () => {
+      const focused = document.activeElement;
+      closeMenu(mobile.matches && nav.contains(focused));
+      if (!mobile.matches && focused === menuButton) nav.querySelector('a')?.focus();
+    });
   }
 
   document.querySelectorAll('.gallery').forEach(gallery => {
@@ -66,14 +76,16 @@
       panel.tabIndex = 0;
       const img = panel.querySelector('img');
       if (img) {
-        img.addEventListener('error', () => {
+        const showError = () => {
           if (panel.querySelector('.image-error')) return;
           const error = document.createElement('p');
           error.className = 'image-error';
           error.setAttribute('role', 'status');
           error.textContent = 'Die Aufnahme konnte nicht geladen werden. Nutzen Sie „Vergrößern“, um das Originalbild zu öffnen, oder laden Sie die Seite erneut.';
           img.after(error);
-        });
+        };
+        img.addEventListener('error', showError);
+        if (img.complete && img.naturalWidth === 0) showError();
       }
     });
     tabs.forEach((tab, index) => {
@@ -122,7 +134,7 @@
       event.preventDefault();
       trigger = link;
       const preview = link.querySelector('img') || link.closest('figure')?.querySelector('img');
-      const src = preview?.currentSrc || link.href;
+      const src = link.href;
       viewport.classList.toggle('result-snapshot', src.includes('ergebnis-hell'));
       dialog.querySelector('#dialog-title').textContent = link.dataset.title || 'App-Aufnahme';
       dialog.querySelector('#dialog-caption').textContent = link.dataset.caption || preview?.alt || '';

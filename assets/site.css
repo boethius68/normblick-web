@@ -166,11 +166,13 @@ kbd { display: inline-flex; align-items: center; justify-content: center; min-wi
 .faq-list details[open] summary::after { content: '−'; }
 .faq-list summary:hover { text-decoration: underline; text-underline-offset: 5px; }
 .faq-list details > div { padding: 0 36px 24px 0; color: var(--muted); font-size: 16px; }
-.test-section { text-align: center; border-top: 1px solid var(--border); padding-top: 64px; padding-bottom: 72px; }
-.test-section img { margin: 0 auto 22px; }
-.test-section > p { margin: 20px auto 0; max-width: 52ch; color: var(--muted); }
-.test-section .button { margin-top: 28px; }
-.test-section .small { margin-top: 18px; }
+.download-section { text-align: center; border-top: 1px solid var(--border); padding-top: 64px; padding-bottom: 72px; }
+.download-section img { margin: 0 auto 22px; }
+.download-section > p { margin: 20px auto 0; max-width: 52ch; color: var(--muted); }
+.download-section .button { margin-top: 28px; }
+.download-section .small { margin-top: 18px; }
+.download-section ol { max-width: 52ch; margin: 28px auto 0; padding-left: 1.5em; text-align: left; }
+.download-section li + li { margin-top: 12px; }
 .site-footer { padding-block: 32px 28px; border-top: 1px solid var(--border); }
 .footer-main { display: flex; justify-content: space-between; gap: 32px; align-items: start; }
 .footer-brand { display: inline-flex; align-items: center; min-height: 44px; font: 600 22px/1.5 var(--font-display); letter-spacing: -.03em; text-decoration: none; }
@@ -257,7 +259,7 @@ body.dialog-open { overflow: hidden; }
   .shortcuts-section { padding-block: 56px; }
   .shortcut-list { gap: 28px; }
   .faq-list details > div { padding-right: 10px; }
-  .test-section { padding-block: 52px; }
+  .download-section { padding-block: 52px; }
   .footer-main { flex-wrap: wrap; gap: 12px 20px; }
   .footer-main p { width: 100%; order: 2; }
   .footer-main nav { gap: 20px; }

@@ -7,7 +7,7 @@
   const select = form.querySelector('select');
   const status = document.querySelector('[data-catalog-status]');
   const empty = document.querySelector('.catalog-empty');
-  const falten = text => text.toLocaleLowerCase('de').replaceAll('ä', 'ae').replaceAll('ö', 'oe').replaceAll('ü', 'ue').replaceAll('ß', 'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+  const falten = text => text.normalize('NFC').toLocaleLowerCase('de').replaceAll('ä', 'ae').replaceAll('ö', 'oe').replaceAll('ü', 'ue').replaceAll('ß', 'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
   const groups = [...document.querySelectorAll('.catalog-group')].map(element => ({
     element,
     count: element.querySelector('[data-group-count]'),
