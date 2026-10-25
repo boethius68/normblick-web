@@ -320,3 +320,14 @@ ausschließlichen Store-Starts war falsch; das reine Store-Websitepaket ist erse
   ist nicht das nun freizugebende Paket.
 - Vollständiges Direktdownload-ZIP mit `unzip -t` erfolgreich geprüft.
   SHA-256: `444ec182186e091dc9f352465d28f689c40be0918c11f734a51a99b709bb39ae`.
+### Hostinger Auto-Deploy und Live-Prüfung
+
+- Hostinger Auto-Deploy ist für `normblick.luneq.eu` aktiv: Jeder Push auf `main`
+  wird von Hostinger binnen Sekunden automatisch geklont und publiziert.
+- Live-Verbindung über Hostinger MCP (`@hostinger/mcp`) und SSH-Zugang
+  (`82.198.227.167:65002`) geprüft.
+- Die Downloaddatei `downloads/Normblick-1.0-11.dmg` (208.990.479 Byte,
+  SHA-256 `2b5f7a23…`) ist auf dem Hostinger-Server hinterlegt.
+  Öffentlicher Abruf über HTTPS liefert HTTP/2 200 mit `application/x-apple-diskimage`.
+- Da Git untrackte Dateien beim Pull erhält, bleibt die Downloaddatei bei
+  künftigen automatischen Deployments erhalten.
