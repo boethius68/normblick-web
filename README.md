@@ -20,7 +20,7 @@ Der lokale Auftritt bietet den direkten kostenlosen Mac-Download an. Neue Pro-Ab
 
 ## Aufbau
 
-Statisches HTML/CSS/JavaScript, keine Build-Abhängigkeiten, keine externen Fonts oder Tracker. Echte App-Aufnahmen in `assets/shots/`, als WebP für die Website optimiert. Galerie und Bilddialog sind progressive Erweiterungen; die Produktinhalte bleiben ohne JavaScript verfügbar.
+Statisches HTML/CSS/JavaScript, keine Build-Abhängigkeiten, keine externen Fonts und keine Cookies. Einzige externe Ressource ist das cookielose Plausible-Analytics-Skript (`plausible.io`) im `<head>` aller HTML-Seiten; die Datenschutzerklärung ist entsprechend angepasst. Echte App-Aufnahmen in `assets/shots/`, als WebP für die Website optimiert. Galerie und Bilddialog sind progressive Erweiterungen; die Produktinhalte bleiben ohne JavaScript verfügbar.
 
 Der ursprüngliche Entwurf wurde in OpenDesign erstellt. Der Hero wurde durch eine bedienbare Simulation der tatsächlichen Lupenfunktion ersetzt: zwei Fundstellen im Vorschautext, Glaskapsel am Zeiger, Wahltaste, Größenänderung und bestätigender Klick. Die Browser-Simulation nutzt zwei hinterlegte BGB-Texte; sie führt keine OCR aus. Die Nachschlagegalerie darunter zeigt echte App-Aufnahmen. Gestaltungsrichtung und native Referenzgeometrie: `DESIGN.md`.
 
