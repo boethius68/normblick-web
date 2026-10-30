@@ -331,3 +331,50 @@ ausschließlichen Store-Starts war falsch; das reine Store-Websitepaket ist erse
   Öffentlicher Abruf über HTTPS liefert HTTP/2 200 mit `application/x-apple-diskimage`.
 - Da Git untrackte Dateien beim Pull erhält, bleibt die Downloaddatei bei
   künftigen automatischen Deployments erhalten.
+
+## Build 13 mit Sparkle-Updates und Download-Zähler – 30. Oktober 2026
+
+Philipp hat am 30. Oktober 2026 die Veröffentlichung von Build 13 als
+Direktdownload auf der Website beauftragt, einschließlich automatischer
+Updates und Downloadzählung.
+
+### Release-Artefakt und Notarisierung
+
+- **App-Version:** 1.0 (Build 13), Ziel `NormblickDirekt`.
+- **Updates:** Sparkle 2 (2.10.1) eingebunden; Downloader- und Installer-
+  Dienst aktiv (`SUEnableDownloaderService = YES`, `SUEnableInstallerLauncherService = YES`).
+  Die App selbst benötigt kein Netzwerk-Entitlement. Mach-Lookup-Ausnahme
+  für XPC-Dienste gesetzt. Tägliche automatische Prüfung; Installation erst
+  nach Nutzerbestätigung.
+- **Notarisierung:** Mit Cloud Managed Developer ID (`Philipp Horn (5PB6PP494U)`)
+  über Xcode signiert und an Apples Notarisierungsdienst übermittelt.
+  `xcodebuild -exportNotarizedApp` erfolgreich; Ticket gestapelt (`stapler validate` ok).
+  Gatekeeper am Bundle und am gemounteten Datenträgerabbild: `accepted`,
+  `source=Notarized Developer ID`.
+- **Datenträgerabbild:** `Normblick-1.0-13.dmg`, 213.036.200 Bytes
+  (ausgewiesen als 204 MB), SHA-256:
+  `56bb5ad8cf11316c688899e64d2426827826805dea7bee6be76c783df76c22c1`.
+
+### Update-Feed und Download-Zähler
+
+- **Update-Feed:** `appcast.xml` im Web-Wurzelverzeichnis und unter
+  `downloads/appcast.xml` abgelegt. Erzeugt mit Sparkles `generate_appcast`
+  unter Verwendung des gesicherten Ed25519-Schlüssels.
+- **Zähler:** `download.php` fängt Download-Klicks ab, schließt Bots und
+  Crawl-Anfragen aus und zählt anonyme Abrufe je Kalendertag in
+  `domains/normblick.luneq.eu/normblick-downloads.json` außerhalb des
+  Web-Wurzelverzeichnisses (keine Speicherung von IP-Adressen, Cookies oder
+  Browserkennungen). Danach HTTP 302-Weiterleitung auf die aktuelle DMG.
+- **Datenschutz:** `datenschutz.html` um Abschnitte zu automatischen Updates
+  und Downloadzählung ergänzt; Stand auf 30. Oktober 2026 aktualisiert.
+
+### Live-Prüfung
+
+- Per SCP auf den Hostinger-Server übertragen (`82.198.227.167:65002`).
+- Git-Push auf `main` löste Hostinger Auto-Deploy aus.
+- Live-Endpunkte geprüft:
+  - `https://normblick.luneq.eu/` → HTTP/2 200.
+  - `https://normblick.luneq.eu/download.php` → HTTP/2 302 auf `/downloads/Normblick-1.0-13.dmg`.
+  - `https://normblick.luneq.eu/downloads/Normblick-1.0-13.dmg` → HTTP/2 200, `application/x-apple-diskimage`, 213.036.200 Bytes.
+  - `https://normblick.luneq.eu/appcast.xml` → HTTP/2 200, RSS 2.0 mit Version 13 und Ed25519-Signatur.
+  - Zählerdatei `normblick-downloads.json` verzeichnete den ersten echten Testabruf mit Datum 2026-10-30.
