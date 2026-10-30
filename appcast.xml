@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Normblick</title>
+        <item>
+            <title>1.0</title>
+            <pubDate>Fri, 30 Oct 2026 01:19:03 +0100</pubDate>
+            <sparkle:version>13</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://normblick.luneq.eu/downloads/Normblick-1.0-13.dmg" length="213036200" type="application/octet-stream" sparkle:edSignature="ilhlD9Ew9sB+byYMkpwLqw310yfUYiWgSKURKGr+EOa+R06+sUa01yAPbB5xXsnm84eZRR9cvjpcPpckR8x8DA=="/>
+        </item>
+        <item>
+            <title>1.0</title>
+            <pubDate>Sun, 25 Oct 2026 19:13:23 +0100</pubDate>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://normblick.luneq.eu/downloads/Normblick-1.0-11.dmg" length="208990479" type="application/octet-stream"/>
+        </item>
+    </channel>
+</rss>
