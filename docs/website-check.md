@@ -403,3 +403,15 @@ Geprüft: `pruefen.py`, `check-asset-versions.py`, Katalog `--pruefen`,
 `node --check`, `git diff --check`. Chromium bei 1440 und 390 px gegen die
 Live-Seite: Katalog und Demo pixelgleich, abgesehen vom animierten Lupenschein;
 Katalogsuche und Startseiten-Link funktionieren, keine JavaScriptfehler.
+
+## IndexNow 3. November 2026
+
+Schlüsseldatei `1a3514e1f176b773f47d22cc95a8b22e.txt` im Wurzelverzeichnis (Inhalt = Schlüssel). Damit
+lassen sich geänderte URLs ohne Konto an Bing, Yandex, Seznam und Naver melden:
+
+```bash
+curl -s -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json' \
+  -d '{"host":"normblick.luneq.eu","key":"1a3514e1f176b773f47d22cc95a8b22e","keyLocation":"https://normblick.luneq.eu/1a3514e1f176b773f47d22cc95a8b22e.txt","urlList":["https://normblick.luneq.eu/"]}'
+```
+
+Die Datei nicht löschen, solange IndexNow genutzt wird.
