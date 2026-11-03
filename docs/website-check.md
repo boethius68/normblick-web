@@ -415,3 +415,9 @@ curl -s -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/
 ```
 
 Die Datei nicht löschen, solange IndexNow genutzt wird.
+
+## Google Search Console 3. November 2026
+
+URL-Präfix-Property `https://normblick.luneq.eu/`, bestätigt über
+`googlef92c9a7950d5a71e.html` im Wurzelverzeichnis. Die Datei nicht löschen,
+sonst verfällt die Bestätigung.
