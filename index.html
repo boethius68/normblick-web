@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Normblick | Vom Gesetzeszitat zum amtlichen Wortlaut</title>
-  <meta name="description" content="Normblick für Mac kostenlos herunterladen: OCR-Lupe und amtlicher Wortlaut lokal auf Ihrem Mac. Version 1.0 (Build 13), macOS 26+, Intel und Apple Silicon.">
+  <title>Normblick – Gesetze am Mac per Lupe nachschlagen, kostenlos</title>
+  <meta name="description" content="Wahltaste halten, Fundstelle anklicken: Normblick zeigt den amtlichen Wortlaut aus 914 Gesetzen von Bund, Ländern und EU direkt neben Ihrem Dokument. Kostenlos für macOS 26.">
   <link rel="canonical" href="https://normblick.luneq.eu/">
   <link rel="icon" href="assets/favicon.png?v=cdacf3f0769f" sizes="32x32" type="image/png">
   <link rel="icon" href="assets/favicon.svg?v=b4dbe36185fb" type="image/svg+xml">
@@ -21,26 +21,84 @@
   <meta property="og:image:height" content="1120">
   <meta property="og:image:alt" content="Normblick zeigt § 823 BGB mit Paragraphenliste und amtlichem Wortlaut.">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="assets/site.css?v=97b7925793f8">
-  <link rel="stylesheet" href="assets/workflow.css?v=3b4da6df850c">
+  <link rel="stylesheet" href="assets/site.css?v=7c53a77ce340">
+  <link rel="stylesheet" href="assets/workflow.css?v=28772b8dec27">
   <script src="assets/workflow.js?v=7b3295de0904" defer></script>
   <script src="assets/site.js?v=e14db2867beb" defer></script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Normblick",
-    "description": "Normblick erkennt Fundstellen per OCR-Lupe und öffnet nach einem Klick den amtlichen Wortlaut. Native Mac-App, lokaler Gesetzesbestand.",
-    "url": "https://normblick.luneq.eu/",
-    "downloadUrl": "https://normblick.luneq.eu/download.php",
-    "softwareVersion": "1.0 (Build 13)",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "image": "https://normblick.luneq.eu/assets/shots/gesetze-hell.jpg?v=ebba585ec2bb",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "macOS 26 oder neuer",
-    "author": { "@type": "Person", "name": "Philipp Horn" },
-    "publisher": { "@type": "Organization", "name": "Luneq Studio" }
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://normblick.luneq.eu/#organisation",
+      "name": "Luneq Studio",
+      "url": "https://normblick.luneq.eu/",
+      "logo": "https://normblick.luneq.eu/assets/icon-512.png?v=4b906dcd2848",
+      "email": "studio@luneq.eu",
+      "founder": {
+        "@id": "https://normblick.luneq.eu/#philipp-horn"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://normblick.luneq.eu/#philipp-horn",
+      "name": "Philipp Horn",
+      "worksFor": {
+        "@id": "https://normblick.luneq.eu/#organisation"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://normblick.luneq.eu/#website",
+      "url": "https://normblick.luneq.eu/",
+      "name": "Normblick",
+      "inLanguage": "de",
+      "publisher": {
+        "@id": "https://normblick.luneq.eu/#organisation"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://normblick.luneq.eu/#app",
+      "name": "Normblick",
+      "description": "Normblick erkennt Fundstellen per OCR-Lupe und öffnet nach einem Klick den amtlichen Wortlaut. Native Mac-App, lokaler Gesetzesbestand.",
+      "url": "https://normblick.luneq.eu/",
+      "downloadUrl": "https://normblick.luneq.eu/download.php",
+      "softwareVersion": "1.0 (Build 13)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "image": "https://normblick.luneq.eu/assets/shots/gesetze-hell.jpg?v=ebba585ec2bb",
+      "screenshot": [
+        "https://normblick.luneq.eu/assets/shots/gesetze-hell.webp?v=3d87d219245c",
+        "https://normblick.luneq.eu/assets/shots/suche-hell.webp?v=c78554e7f0d0",
+        "https://normblick.luneq.eu/assets/shots/ergebnis-hell.webp?v=daf3ff2ae315"
+      ],
+      "applicationCategory": "ReferenceApplication",
+      "operatingSystem": "macOS 26",
+      "inLanguage": "de",
+      "featureList": [
+        "Lupe am Mauszeiger erkennt Fundstellen per Texterkennung",
+        "Amtlicher Wortlaut mit hervorgehobenem Absatz und Satz",
+        "Gesetzesfenster mit Inhaltsverzeichnis, Wortsuche und Verlauf",
+        "Nachschlagen aus der Zwischenablage und über Spotlight",
+        "Lokaler Gesetzesbestand, ohne Internet nutzbar"
+      ],
+      "author": {
+        "@id": "https://normblick.luneq.eu/#philipp-horn"
+      },
+      "publisher": {
+        "@id": "https://normblick.luneq.eu/#organisation"
+      },
+      "isPartOf": {
+        "@id": "https://normblick.luneq.eu/#website"
+      }
+    }
+  ]
+}
   </script>
   <script type="application/ld+json">
 {
@@ -141,7 +199,7 @@
   <a class="skip-link" href="#inhalt" data-od-id="skip-link">Zum Inhalt</a>
   <header class="site-header" data-od-id="site-header">
     <div class="wrap nav-row">
-      <a class="wordmark" href="index.html" aria-label="Normblick, Startseite" data-od-id="home-link"><img src="assets/marke.svg?v=b4dbe36185fb" alt="" width="38" height="38">Normblick</a>
+      <a class="wordmark" href="/" aria-label="Normblick, Startseite" data-od-id="home-link"><img src="assets/marke.svg?v=b4dbe36185fb" alt="" width="38" height="38">Normblick</a>
       <button class="menu-toggle" type="button" aria-controls="hauptnavigation" aria-expanded="false" data-od-id="menu-toggle" hidden>Menü</button>
       <nav id="hauptnavigation" class="main-nav" aria-label="Hauptnavigation" data-od-id="main-navigation">
         <a href="#lupe" data-od-id="nav-workflow">Die Lupe</a>
@@ -182,7 +240,7 @@
           <div class="lens-stage" data-lens-stage>
             <article class="lens-document" aria-label="Beispieltext mit zwei Gesetzesfundstellen">
               <div class="document-heading"><span>Zivilrecht · Fallnotiz</span><span>01</span></div>
-              <h2>Übergabe und Eigentum</h2>
+              <div class="document-title">Übergabe und Eigentum</div>
               <p>Nach <button type="button" class="lens-citation" data-norm="433" aria-label="§ 433 Abs. 1 S. 1 BGB – Lupe über die Fundstelle legen">§ 433 Abs. 1 S. 1 BGB</button> muss der Verkäufer die Sache übergeben und dem Käufer das Eigentum verschaffen.</p>
               <p>Für die Beschädigung fremden Eigentums kommt ein Anspruch aus <button type="button" class="lens-citation" data-norm="823" aria-label="§ 823 Abs. 1 BGB – Lupe über die Fundstelle legen">§ 823 Abs. 1 BGB</button> in Betracht.</p>
               <p class="document-note">Zwei Fundstellen. Wählen Sie, welche Sie nachlesen möchten.</p>
@@ -341,7 +399,7 @@
   </main>
 
   <footer class="site-footer wrap" data-od-id="site-footer">
-    <div class="footer-main"><a class="footer-brand" href="index.html" data-od-id="footer-home">Normblick</a><p>Ein Werkzeug zum Nachschlagen.<br>Rechtsstand, Anwendbarkeit und Quellen selbst prüfen.</p><nav aria-label="Rechtliche Hinweise"><a href="gesetze.html">Free-Gesetze</a><a href="impressum.html" data-od-id="footer-imprint">Impressum</a><a href="datenschutz.html" data-od-id="footer-privacy">Datenschutz</a></nav></div>
+    <div class="footer-main"><a class="footer-brand" href="/" data-od-id="footer-home">Normblick</a><p>Ein Werkzeug zum Nachschlagen.<br>Rechtsstand, Anwendbarkeit und Quellen selbst prüfen.</p><nav aria-label="Rechtliche Hinweise"><a href="gesetze.html">Free-Gesetze</a><a href="impressum.html" data-od-id="footer-imprint">Impressum</a><a href="datenschutz.html" data-od-id="footer-privacy">Datenschutz</a></nav></div>
     <p class="copyright">© 2026 Philipp Horn · Luneq Studio</p>
   </footer>
 

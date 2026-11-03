@@ -326,6 +326,7 @@ body.dialog-open { overflow: hidden; }
 .catalog-group:last-child { border-bottom: 1px solid var(--border); }
 .catalog-group summary { display: flex; gap: 20px; align-items: baseline; cursor: pointer; padding-block: 22px; font-size: 18px; font-weight: 550; list-style: none; }
 .catalog-group summary::-webkit-details-marker { display: none; }
+.catalog-group summary h2 { font: inherit; letter-spacing: inherit; text-wrap: inherit; }
 .catalog-group summary::before { content: '+'; width: 16px; flex-shrink: 0; font-weight: 400; }
 .catalog-group[open] summary::before { content: '−'; }
 .catalog-group summary span { margin-left: auto; flex-shrink: 0; font-size: 13px; color: var(--muted); font-weight: 400; }

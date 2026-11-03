@@ -14,6 +14,10 @@ QUELLEN = {'': 'Bund', 'lbw': 'Baden-Württemberg', 'lby': 'Bayern', 'lbe': 'Ber
            'lrp': 'Rheinland-Pfalz', 'lsl': 'Saarland', 'lsn': 'Sachsen', 'lsa': 'Sachsen-Anhalt',
            'lsh': 'Schleswig-Holstein', 'lth': 'Thüringen', 'eu': 'Europäische Union', 'coe': 'Europarat'}
 
+def anker(name):
+    s = name.lower().replace('ä', 'ae').replace('ö', 'oe').replace('ü', 'ue').replace('ß', 'ss')
+    return re.sub(r'[^a-z0-9]+', '-', s).strip('-')
+
 def katalog(app):
     with (app / 'docs/katalog/free-aktuell.csv').open() as f:
         zeilen = list(csv.DictReader(f))
@@ -28,7 +32,7 @@ def katalog(app):
         if not gruppe:
             continue
         eintraege = '\n'.join(f'<li data-law><strong>{html.escape(r["gesetz"])}</strong><span>{html.escape(r["titel"])}</span></li>' for r in gruppe)
-        gruppen.append(f'<details class="catalog-group" data-source="{quelle or "bund"}"><summary>{name} <span data-group-count>{len(gruppe)} Gesetze</span></summary><ul class="law-list">{eintraege}</ul></details>')
+        gruppen.append(f'<details class="catalog-group" id="{anker(name)}" data-source="{quelle or "bund"}"><summary><h2>{name}</h2> <span data-group-count>{len(gruppe)} Gesetze</span></summary><ul class="law-list">{eintraege}</ul></details>')
     return ''.join(gruppen), len(zeilen), len(gruppen)
 
 def main():
@@ -41,6 +45,7 @@ def main():
     alt = p.read_text()
     neu, n = re.subn(r'(?<=<div id="gesetzliste">).*?(?=</div>)', lambda _: daten, alt, flags=re.S)
     assert n == 1
+    neu = re.sub(r'(?<=<title>Gesetzeskatalog: )\d+(?= Gesetze)', str(anzahl), neu)
     neu = re.sub(r'\d+ Gesetze und Rechtsakte aus Bund', f'{anzahl} Gesetze und Rechtsakte aus Bund', neu)
     neu = re.sub(r'(?<=data-catalog-status>)\d+ Gesetze in \d+ Rechtskreisen', f'{anzahl} Gesetze in {quellen} Rechtskreisen', neu)
     if args.pruefen:

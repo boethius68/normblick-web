@@ -378,3 +378,28 @@ Updates und Downloadzählung.
   - `https://normblick.luneq.eu/downloads/Normblick-1.0-13.dmg` → HTTP/2 200, `application/x-apple-diskimage`, 213.036.200 Bytes.
   - `https://normblick.luneq.eu/appcast.xml` → HTTP/2 200, RSS 2.0 mit Version 13 und Ed25519-Signatur.
   - Zählerdatei `normblick-downloads.json` verzeichnete den ersten echten Testabruf mit Datum 2026-10-30.
+
+## Änderungen 3. November 2026 (SEO-Audit)
+
+Anlass: `../Normblick/output/normblick.luneq.eu-audit/FULL-AUDIT-REPORT.md`.
+
+- `.htaccess`: 301 von `www.normblick.luneq.eu` auf die Apex-Domain und von
+  `/index.html` auf `/`; HSTS, `nosniff`, `Referrer-Policy`; gehashte Assets
+  ein Jahr `immutable`, HTML `no-cache`. Erst nach dem Hochladen live prüfbar.
+- Interne Links auf `/` statt `index.html`; `scripts/pruefen.py` löst `/`
+  als `index.html` auf.
+- Titel Start und Katalog mit Suchbegriffen; Startseiten-Description ohne
+  Build-Nummer. Katalog mit Open-Graph-Angaben.
+- Demo-Überschrift „Übergabe und Eigentum“ ist kein `h2` mehr
+  (`.document-title`, gleiche Darstellung).
+- Katalog: je Rechtskreis `h2` in `summary` und Anker (`#bayern`,
+  `#europaeische-union` …), erzeugt von `scripts/aktualisiere-katalog.py`,
+  das auch die Zahl im Seitentitel mitführt.
+- JSON-LD als `@graph`: Organization, Person, WebSite, SoftwareApplication
+  (`ReferenceApplication`, Screenshots, Funktionsliste). FAQ unverändert.
+- Sitemap mit `lastmod`.
+
+Geprüft: `pruefen.py`, `check-asset-versions.py`, Katalog `--pruefen`,
+`node --check`, `git diff --check`. Chromium bei 1440 und 390 px gegen die
+Live-Seite: Katalog und Demo pixelgleich, abgesehen vom animierten Lupenschein;
+Katalogsuche und Startseiten-Link funktionieren, keine JavaScriptfehler.

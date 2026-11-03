@@ -72,7 +72,8 @@ def main():
             teile = urlsplit(url)
             if teile.scheme or teile.netloc:
                 continue
-            ziel = unquote(teile.path).lstrip('/') or name
+            pfadteil = unquote(teile.path)
+            ziel = 'index.html' if pfadteil == '/' else pfadteil.lstrip('/') or name
             pfad = ROOT / ziel
             if not pfad.is_file():
                 fehler.append(f'{name}: fehlendes Ziel {url}')
