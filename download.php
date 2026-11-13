@@ -5,7 +5,7 @@
 // Abschnitt „Downloadzählung“). Neue Fassung: DATEI anpassen.
 declare(strict_types=1);
 
-const DATEI = 'Normblick-1.0-13.dmg';
+const DATEI = 'Normblick-1.0-14.dmg';
 
 $agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 $methode = $_SERVER['REQUEST_METHOD'] ?? 'GET';

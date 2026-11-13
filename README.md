@@ -11,8 +11,8 @@ ausdrücklicher Freigabe von Philipp. Die technische Übermittlung an Apples
 Notarisierungsdienst ist keine App-Store-Einreichung und keine Veröffentlichung.
 
 Bis zur App-Store-Verfügbarkeit wird die aktuelle App direkt als DMG angeboten.
-Die enthaltene App ist mit Developer ID signiert und notarisiert. Build 5 bleibt
-unverändert in Apples Review; der Direktdownload enthält Build 11.
+Die enthaltene App ist mit Developer ID signiert und notarisiert. Build 13 bleibt
+unverändert in Apples Review; der Direktdownload enthält Build 14.
 
 ## App
 

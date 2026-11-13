@@ -379,6 +379,44 @@ Updates und Downloadzählung.
   - `https://normblick.luneq.eu/appcast.xml` → HTTP/2 200, RSS 2.0 mit Version 13 und Ed25519-Signatur.
   - Zählerdatei `normblick-downloads.json` verzeichnete den ersten echten Testabruf mit Datum 2026-10-30.
 
+## Build 14 als Direktdownload – 13. November 2026
+
+Philipp hat am 13. November 2026 die Veröffentlichung des aktuellen Builds 14
+als Direktdownload auf der Website beauftragt. Build 13 bleibt unverändert in
+Apples Review; keine App-Store-Einreichung.
+
+### Release-Artefakt und Notarisierung
+
+- **App-Version:** 1.0 (Build 14), Ziel `NormblickDirekt`, aus Tag
+  `v1.0-build14` (Commit `71ff336`) im sauberen Worktree `.build/wt-build14`
+  der App, Seed 2026.11 (424.377 Normen) bytegleich mit dem Worktree.
+- **Notarisierung:** Cloud Managed Developer ID (`Philipp Horn (5PB6PP494U)`),
+  `xcodebuild -exportNotarizedApp` erfolgreich, Ticket gestapelt (`stapler
+  validate` ok). Gatekeeper am Bundle und am gemounteten Datenträgerabbild:
+  `accepted`, `source=Notarized Developer ID`.
+- **Datenträgerabbild:** `Normblick-1.0-14.dmg`, 534.639.001 Bytes
+  (ausgewiesen als 510 MB; der Bestand 2026.11 ist deutlich größer als
+  Oktober), SHA-256:
+  `5b0e09e84bd0614d779c7740dd5cf348f99ea999c56081db7402ea6320d5e354`.
+  `hdiutil verify` gültig; Inhalt `Normblick.app` und Verweis `Programme`.
+
+### Update-Feed und Seiten
+
+- **Update-Feed:** Neuer Eintrag Version 14 mit Ed25519-Signatur, erzeugt mit
+  `generate_appcast --maximum-deltas 0` und dem Schlüssel des
+  Schlüsselbund-Kontos `normblick` (öffentlicher Schlüssel gleich
+  `SUPublicEDKey` der App; Signatur gegen die DMG nachgeprüft). Die Einträge
+  13 und 11 sind unverändert. Bestehende Direktnutzer bekommen Build 14 über
+  Sparkle angeboten.
+- **Seiten:** `download.php` zeigt auf `Normblick-1.0-14.dmg`; Startseite und
+  Katalog nennen Build 14, Bestand November 2026 · rund 424.000 Normen,
+  Downloadgröße 510 MB. `aktualisiere-katalog.py --pruefen` gegen die App:
+  914 Gesetze aus 19 Quellen unverändert.
+- **Datenschutz:** Satz zu „Per E-Mail senden …“ ergänzt (Entwurf im eigenen
+  E-Mail-Programm an `studio@luneq.eu`, Versand erst durch den Nutzer); Stand
+  13. November 2026. Die in der Review-Antwort zitierten Sätze sind unverändert.
+
+
 ## Änderungen 3. November 2026 (SEO-Audit)
 
 Anlass: `../Normblick/output/normblick.luneq.eu-audit/FULL-AUDIT-REPORT.md`.

@@ -4,6 +4,14 @@
         <title>Normblick</title>
         <item>
             <title>1.0</title>
+            <pubDate>Fri, 13 Nov 2026 12:22:17 +0100</pubDate>
+            <sparkle:version>14</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://normblick.luneq.eu/downloads/Normblick-1.0-14.dmg" length="534639001" type="application/octet-stream" sparkle:edSignature="WNCbVEtDahKXdHmr4V5pwzwH47kymMs/ePERF4Qv43x7Wqb1JF0mNQlk0bCaSMZascxg92qAR93eauM249s0AA=="/>
+        </item>
+        <item>
+            <title>1.0</title>
             <pubDate>Fri, 30 Oct 2026 01:19:03 +0100</pubDate>
             <sparkle:version>13</sparkle:version>
             <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
