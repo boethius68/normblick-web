@@ -474,3 +474,13 @@ plus Sitemap erneut gemeldet; `api.indexnow.org` antwortete HTTP 200.
 URL-Präfix-Property `https://normblick.luneq.eu/`, bestätigt über
 `googlef92c9a7950d5a71e.html` im Wurzelverzeichnis. Die Datei nicht löschen,
 sonst verfällt die Bestätigung.
+
+13.11.2026 (über Safari, angemeldete Sitzung): URL-Prüfung für `/` und
+`/gesetze.html` weiterhin „Gecrawlt – zurzeit nicht indexiert“, letztes
+Crawling 03.11.2026, Seitenabruf erfolgreich; für beide „Indexierung
+beantragt“ (bevorzugte Crawling-Warteschlange bestätigt). Sitemap stand seit
+03.11. auf „Konnte nicht abgerufen werden“ (0 Seiten); robots.txt-Bericht
+zeigt erfolgreichen Abruf durch Google am 03.11., also keine Sperre.
+Sitemap `sitemap.xml` am 13.11. neu eingereicht. Hinweis: Anfragen mit
+gefälschter Googlebot-Kennung von fremden IPs beantwortet das Hostinger-CDN
+teils mit 403; das ist kein Befund für den echten Googlebot.
