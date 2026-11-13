@@ -465,6 +465,10 @@ curl -s -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/
 
 Die Datei nicht löschen, solange IndexNow genutzt wird.
 
+13.11.2026: Nach dem Build-14-Update `lastmod` von Startseite, Katalog und
+Datenschutz auf 2026-11-13 gesetzt (`ee42bc6`, live geprüft) und die drei URLs
+plus Sitemap erneut gemeldet; `api.indexnow.org` antwortete HTTP 200.
+
 ## Google Search Console 3. November 2026
 
 URL-Präfix-Property `https://normblick.luneq.eu/`, bestätigt über
