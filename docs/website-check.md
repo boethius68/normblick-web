@@ -416,6 +416,17 @@ Apples Review; keine App-Store-Einreichung.
   E-Mail-Programm an `studio@luneq.eu`, Versand erst durch den Nutzer); Stand
   13. November 2026. Die in der Review-Antwort zitierten Sätze sind unverändert.
 
+### Live-Prüfung
+
+- DMG und `downloads/appcast.xml` per SCP auf den Hostinger-Server übertragen;
+  serverseitig 534.639.001 Bytes, SHA-256 gleich.
+- Git-Push auf `main` (`d89bd13`) löste Hostinger Auto-Deploy aus.
+- Live-Endpunkte geprüft:
+  - `https://normblick.luneq.eu/download.php` → HTTP/2 302 auf `/downloads/Normblick-1.0-14.dmg`.
+  - `https://normblick.luneq.eu/downloads/Normblick-1.0-14.dmg` → HTTP/2 200, `application/x-apple-diskimage`, 534.639.001 Bytes.
+  - `https://normblick.luneq.eu/appcast.xml` und `/downloads/appcast.xml` → Version 14.
+  - Startseite zeigt Build 14, 510 MB und Bestand November 2026; Datenschutz
+    enthält den Satz zu „Per E-Mail senden …“.
 
 ## Änderungen 3. November 2026 (SEO-Audit)
 
