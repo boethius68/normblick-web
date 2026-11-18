@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prüft lokale Ziele, Assetversionen und die Übereinstimmung sichtbarer FAQ mit JSON-LD."""
+"""Prüft Downloadwege, lokale Ziele, Assetversionen und die Übereinstimmung sichtbarer FAQ mit JSON-LD."""
 import hashlib
 from html.parser import HTMLParser
 import json
@@ -8,6 +8,9 @@ import re
 from urllib.parse import parse_qs, unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+STORE_URL = 'https://apps.apple.com/de/app/normblick/id6824618858'
+STORE_VERSION = '1.1'
+STORE_LINKS = ('nav-download', 'hero-download', 'bottom-download')
 
 class Seite(HTMLParser):
     def __init__(self, text):
@@ -15,6 +18,7 @@ class Seite(HTMLParser):
         self.ids = set()
         self.doppelte = []
         self.urls = []
+        self.links = []
         self.faqs = []
         self.details = False
         self.summary = False
@@ -26,6 +30,8 @@ class Seite(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if tag == 'a' and a.get('href'):
+            self.links.append((a.get('data-od-id'), a['href']))
         if 'id' in a:
             if a['id'] in self.ids:
                 self.doppelte.append(a['id'])
@@ -62,9 +68,39 @@ class Seite(HTMLParser):
         if self.details:
             (self.frage if self.summary else self.antwort).append(data)
 
+def pruefe_storeangebot(seite, fehler):
+    for kennung in STORE_LINKS:
+        ziele = [ziel.split('?')[0] for marke, ziel in seite.links if marke == kennung]
+        if ziele != [STORE_URL]:
+            fehler.append(f'index.html: {kennung} muss zum Mac App Store führen')
+    if not any(ziel in ('download.php', '/download.php') and marke not in STORE_LINKS
+               for marke, ziel in seite.links):
+        fehler.append('index.html: separater Link zum Direktdownload fehlt')
+
+    if not any('4,99 €' in antwort and 'jahr' in antwort.lower() for _, antwort in seite.faqs):
+        fehler.append('index.html: deutscher Jahrespreis von Pro fehlt in den FAQ')
+
+    apps = [eintrag for schema in seite.schemas for eintrag in schema.get('@graph', [schema])
+            if eintrag.get('@type') == 'SoftwareApplication']
+    if len(apps) != 1:
+        fehler.append('index.html: ein SoftwareApplication-Eintrag erwartet')
+        return
+    app = apps[0]
+    if app.get('softwareVersion') not in (STORE_VERSION, f'{STORE_VERSION} (Build 15)'):
+        fehler.append(f'index.html: SoftwareApplication muss Store-Version {STORE_VERSION} nennen')
+    if app.get('downloadUrl', '').split('?')[0] != STORE_URL:
+        fehler.append('index.html: SoftwareApplication muss zum Mac App Store führen')
+    angebote = app.get('offers', [])
+    if isinstance(angebote, dict):
+        angebote = [angebote]
+    if not any(angebot.get('price') in ('0', '0.00', 0) and angebot.get('priceCurrency') == 'EUR'
+               for angebot in angebote):
+        fehler.append('index.html: das kostenlose Angebot in EUR fehlt in SoftwareApplication')
+
 def main():
     seiten = {p.name: Seite(p.read_text()) for p in ROOT.glob('*.html')}
     fehler = []
+    pruefe_storeangebot(seiten['index.html'], fehler)
     for name, seite in seiten.items():
         for id in seite.doppelte:
             fehler.append(f'{name}: doppelte ID {id}')
@@ -90,7 +126,7 @@ def main():
                 daten = [(q['name'], q['acceptedAnswer']['text']) for q in schema['mainEntity']]
                 if daten != seite.faqs:
                     fehler.append(f'{name}: sichtbare FAQ und JSON-LD unterscheiden sich')
-    print('\n'.join(fehler) if fehler else f'{len(seiten)} HTML-Seiten: Ziele, IDs, Assetversionen und FAQ-Daten in Ordnung.')
+    print('\n'.join(fehler) if fehler else f'{len(seiten)} HTML-Seiten: Downloadwege, Ziele, IDs, Assetversionen und FAQ-Daten in Ordnung.')
     return bool(fehler)
 
 if __name__ == '__main__':

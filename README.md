@@ -10,13 +10,11 @@ Veröffentlichung von Website, Direktdownload oder App im Store nur nach
 ausdrücklicher Freigabe von Philipp. Die technische Übermittlung an Apples
 Notarisierungsdienst ist keine App-Store-Einreichung und keine Veröffentlichung.
 
-Bis zur App-Store-Verfügbarkeit wird die aktuelle App direkt als DMG angeboten.
-Die enthaltene App ist mit Developer ID signiert und notarisiert. Build 13 bleibt
-unverändert in Apples Review; der Direktdownload enthält Build 14.
-
 ## App
 
-Der lokale Auftritt bietet den direkten kostenlosen Mac-Download an. Neue Pro-Abos sind vor der App-Store-Freigabe nicht erhältlich. Vorhandene von Apple bestätigte Berechtigungen werden weiterhin geprüft; keine künstliche Freischaltung oder Änderung der Lizenzlogik. Support: `studio@luneq.eu`. Die öffentliche Domain wurde nicht verändert.
+Die Website verlinkt vorrangig auf [Normblick 1.1 im Mac App Store](https://apps.apple.com/de/app/normblick/id6824618858). Die Grundsammlung ist dauerhaft kostenlos. Das optionale Pro-Jahresabo kostet im deutschen Store 4,99 € pro Jahr.
+
+Der separate Direktdownload liefert weiterhin die signierte und notarisierte Version 1.0 (Build 14) mit Free-Grundsammlung. Neue Pro-Abos werden in der App-Store-Fassung abgeschlossen. Support: `studio@luneq.eu`.
 
 ## Aufbau
 
